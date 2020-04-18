@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public PlayerController player;
 
     private AsteroidSpawner asteroidSpawner;
+    private UIManager uiManager;
 
     private void Awake()
     {
@@ -30,11 +31,22 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        asteroidSpawner = gameObject.AddComponent<AsteroidSpawner>();
+        EventManager.StartListening(Statics.Events.gameOver, OnGameOver);
+        asteroidSpawner = gameObject.GetComponent<AsteroidSpawner>();
+        uiManager = gameObject.GetComponent<UIManager>();
 
         player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity).GetComponent<PlayerController>();
         cameraFollow.SetTarget(player.transform);
 
-        asteroidSpawner.StartSpawner(spawnRate, spawnAmount);
+        asteroidSpawner.StartSpawner();
+
+        uiManager.Init(player.maxHull, player.minHull, player.maxOxygen, player.minOxygen);
+    }
+
+    private void OnGameOver()
+    {
+        Debug.Log("he perdio");
+        Destroy(player.gameObject);
+        asteroidSpawner.StopSpawner();
     }
 }

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class AsteroidSpawner : MonoBehaviour
 {
-    private float spawnRate = 2f;
-    private int spawnAmount = 2;
-    private float xyOffset = 1;
+    public float spawnRate = 2f;
+    public int spawnAmount = 2;
+    public float xyOffset = 1;
 
     private Coroutine spawner;
     private Camera mainCam;
@@ -16,10 +16,8 @@ public class AsteroidSpawner : MonoBehaviour
         mainCam = Camera.main;
     }
 
-    public void StartSpawner(float spawnRate, int spawnAmount, float xyOffset = 1)
+    public void StartSpawner()
     {
-        this.spawnRate = spawnRate;
-        this.spawnAmount = spawnAmount;
         spawner = StartCoroutine(Spawner());
     }
 
