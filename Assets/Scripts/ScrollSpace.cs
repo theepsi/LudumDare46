@@ -18,7 +18,7 @@ public class ScrollSpace : MonoBehaviour
         Vector2 offset = meshRendererMaterial.mainTextureOffset;
 
         offset.x = transform.position.x / transform.localScale.x / parallax;
-        offset.y = transform.position.y / transform.localScale.y / parallax;
+        offset.y = transform.position.z / transform.localScale.y / parallax;
 
         meshRendererMaterial.mainTextureOffset = offset;
     }
