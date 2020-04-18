@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -387,6 +387,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1650175089}
   - component: {fileID: 1650175090}
+  - component: {fileID: 1650175091}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -420,6 +421,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d799a9df2c437d428cf12027a8480fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerPrefab: {fileID: 0}
+--- !u!114 &1650175091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650175088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1d893e697b928e45a6851b9cf4dde4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PooledObjects:
+  - objectToPool: {fileID: 3825296682149880634, guid: 37045d638e841484b9fce4e9811d723a,
+      type: 3}
+    Pool: []
+    PooledAmount: 10
 --- !u!1 &1877360759
 GameObject:
   m_ObjectHideFlags: 0

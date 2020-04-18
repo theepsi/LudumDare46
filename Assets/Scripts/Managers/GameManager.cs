@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance = null;
 
+    public GameObject PlayerPrefab;
+
     private void Awake()
     {
         if (Instance == null)
@@ -14,5 +16,10 @@ public class GameManager : MonoBehaviour
             Destroy(this);
 
         DontDestroyOnLoad(this);
+    }
+
+    private void Start()
+    {
+        
     }
 }
