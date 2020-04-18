@@ -8,6 +8,11 @@ public class CameraFollow : MonoBehaviour
     public Vector3 offset;
     public float followSpeed = 10f;
 
+    public void SetTarget(Transform target)
+    {
+        this.target = target;
+    }
+
     void FixedUpdate()
     {
         if (target != null)

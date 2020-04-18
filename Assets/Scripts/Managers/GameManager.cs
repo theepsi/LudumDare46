@@ -6,7 +6,14 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance = null;
 
-    public GameObject PlayerPrefab;
+    public CameraFollow cameraFollow;
+
+    public GameObject playerPrefab;
+    
+    [HideInInspector]
+    public PlayerController player;
+
+    private AsteroidSpawner asteroidSpawner;
 
     private void Awake()
     {
@@ -20,6 +27,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        
+        asteroidSpawner = gameObject.AddComponent<AsteroidSpawner>();
+
+        player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity).GetComponent<PlayerController>();
+        cameraFollow.SetTarget(player.transform);
+
+        asteroidSpawner.StartSpawner();
     }
 }
