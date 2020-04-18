@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     public CameraFollow cameraFollow;
 
     public GameObject playerPrefab;
+
+    public float spawnRate = 2f;
+    public int spawnAmount = 2;
     
     [HideInInspector]
     public PlayerController player;
@@ -32,6 +35,6 @@ public class GameManager : MonoBehaviour
         player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity).GetComponent<PlayerController>();
         cameraFollow.SetTarget(player.transform);
 
-        asteroidSpawner.StartSpawner();
+        asteroidSpawner.StartSpawner(spawnRate, spawnAmount);
     }
 }

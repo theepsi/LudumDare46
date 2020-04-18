@@ -4,7 +4,8 @@ using UnityEngine;
 
 public enum AsteroidSize
 {
-    SMALL = 0,
+    NONE = 0,
+    SMALL,
     NORMAL,
     BIG
 }
@@ -15,12 +16,13 @@ public class Asteroid : MonoBehaviour
 {
     public AsteroidSize currentSize = AsteroidSize.BIG;
     public Vector2 RandomForce;
-    public Vector2 RandomOffsetFailure;
 
     private Rigidbody mRigidbody;
 
     private bool ready = false;
     private Vector3 targetDir;
+
+    public GameObject breakPartner = null;
 
     private void Awake()
     {
@@ -30,17 +32,21 @@ public class Asteroid : MonoBehaviour
 
     public void Init(AsteroidSize size, Vector3 target, bool fromBreak)
     {
+        breakPartner = null;
         currentSize = size;
+        mRigidbody.velocity = Vector3.zero;
         ApplySize();
-
         if (!fromBreak)
         {
-            Vector3 targetOffseted = target; //+ new Vector3(Random.Range(RandomOffsetFailure[0], RandomOffsetFailure[1]), 0, Random.Range(RandomOffsetFailure[0], RandomOffsetFailure[1]));
+            Vector3 targetOffseted = target;
             targetDir = targetOffseted - transform.position;
-
-            ready = true;
         }
-
+        else
+        {
+            // direction already applied
+            targetDir = target;
+        }
+        ready = true;
         gameObject.SetActive(true);
     }
 
@@ -54,8 +60,7 @@ public class Asteroid : MonoBehaviour
 
         if (CheckForDestruction())
         {
-            ready = false;
-            gameObject.SetActive(false);
+            DestroyAsteroid();
         }
     }
 
@@ -64,11 +69,11 @@ public class Asteroid : MonoBehaviour
         switch (currentSize)
         {
             case AsteroidSize.SMALL:
-                transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+                transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                 break;
             default:
             case AsteroidSize.NORMAL:
-                transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
+                transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
                 break;
             case AsteroidSize.BIG:
                 transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
@@ -79,12 +84,66 @@ public class Asteroid : MonoBehaviour
 
     private void Break()
     {
+        DestroyAsteroid();
 
+        AsteroidSize newSize = AsteroidSize.NONE;
+
+        switch (currentSize)
+        {
+            case AsteroidSize.BIG:
+                newSize = AsteroidSize.NORMAL;
+                break;
+
+            case AsteroidSize.NORMAL:
+                newSize = AsteroidSize.SMALL;
+                break;
+        }
+
+        if (newSize != AsteroidSize.NONE)
+        {
+            float alpha = 45f;
+            Vector3 currentDir = mRigidbody.velocity;
+            Vector3 inverseDir = -currentDir;
+
+            Vector3 dir1 = new Vector3(Mathf.Cos(alpha) * inverseDir.x - Mathf.Sin(alpha) * inverseDir.z, 0, Mathf.Sin(alpha) * inverseDir.x + Mathf.Cos(alpha) * inverseDir.z);
+            Vector3 dir2 = new Vector3(Mathf.Cos(-alpha) * inverseDir.x - Mathf.Sin(-alpha) * inverseDir.z, 0, Mathf.Sin(-alpha) * inverseDir.x + Mathf.Cos(-alpha) * inverseDir.z);
+
+            GameObject asteroid1 = ObjectPooler.Instance.GetPooledObject("Asteroid");
+            asteroid1.transform.position = transform.position;
+            asteroid1.GetComponent<Asteroid>().Init(newSize, dir1, true);
+
+            GameObject asteroid2 = ObjectPooler.Instance.GetPooledObject("Asteroid");
+            asteroid2.transform.position = transform.position;
+            asteroid2.GetComponent<Asteroid>().Init(newSize, dir2, true);
+
+            asteroid1.GetComponent<Asteroid>().breakPartner = asteroid2;
+            asteroid2.GetComponent<Asteroid>().breakPartner = asteroid1;
+        }
     }
 
     private bool CheckForDestruction()
     {
         Vector2 vpPos = Camera.main.WorldToViewportPoint(transform.position);
         return vpPos.x < -1 || vpPos.x > 2 || vpPos.y < -1 || vpPos.y > 2;
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Asteroid"))
+        {
+            if (other.gameObject == breakPartner) return;
+            Break();
+        }
+        else if (other.CompareTag("Player"))
+        {
+            other.GetComponent<PlayerController>().DoDamage((int)currentSize);
+            DestroyAsteroid();
+        }
+    }
+
+    private void DestroyAsteroid()
+    {
+        ready = false;
+        gameObject.SetActive(false);
     }
 }

@@ -299,6 +299,8 @@ MonoBehaviour:
   cameraFollow: {fileID: 340812252}
   playerPrefab: {fileID: 4982733819636804262, guid: 3c45a552444800343835a498e7140508,
     type: 3}
+  spawnRate: 2
+  spawnAmount: 2
   player: {fileID: 0}
 --- !u!114 &1650175091
 MonoBehaviour:

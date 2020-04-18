@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class AsteroidSpawner : MonoBehaviour
 {
-    public float spanwRate = 2f;
-    public int spawnAmount = 2;
-    public float xyOffset = 1;
+    private float spawnRate = 2f;
+    private int spawnAmount = 2;
+    private float xyOffset = 1;
 
     private Coroutine spawner;
     private Camera mainCam;
@@ -16,8 +16,10 @@ public class AsteroidSpawner : MonoBehaviour
         mainCam = Camera.main;
     }
 
-    public void StartSpawner()
+    public void StartSpawner(float spawnRate, int spawnAmount, float xyOffset = 1)
     {
+        this.spawnRate = spawnRate;
+        this.spawnAmount = spawnAmount;
         spawner = StartCoroutine(Spawner());
     }
 
@@ -31,7 +33,7 @@ public class AsteroidSpawner : MonoBehaviour
     {
         for (;;)
         {
-            yield return new WaitForSeconds(spanwRate);
+            yield return new WaitForSeconds(spawnRate);
 
             Spawn();
         }
@@ -51,10 +53,8 @@ public class AsteroidSpawner : MonoBehaviour
                 randomY = Random.Range(-xyOffset, xyOffset + 1);
             }
 
-            Debug.Log($"RandomX {randomX} - RandomY {randomY}");
-
             asteroid.transform.position = mainCam.ViewportToWorldPoint(new Vector3(randomX, randomY, mainCam.transform.position.y));
-            AsteroidSize randomSize = (AsteroidSize)Random.Range(0, System.Enum.GetNames(typeof(AsteroidSize)).Length);
+            AsteroidSize randomSize = (AsteroidSize)Random.Range(1, System.Enum.GetNames(typeof(AsteroidSize)).Length);
             asteroid.GetComponent<Asteroid>().Init(randomSize, GameManager.Instance.player.transform.position, false);
         }
     }

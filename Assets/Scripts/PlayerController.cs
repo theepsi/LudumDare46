@@ -37,4 +37,9 @@ public class PlayerController : MonoBehaviour
             mRigidbody.velocity += transform.forward * impulseSpeed * Time.deltaTime * acceleration;
         }
     }
+
+    public void DoDamage(int damageAmount)
+    {
+        Debug.Log($"Man pegao {damageAmount}");
+    }
 }
