@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Oxygen
   m_EditorClassIdentifier: 
   moduleAction: 1
-  moduleRarity: 0
+  moduleRarity: 50
   moduleName: OxygenModule
   moduleMaterial: {fileID: 2100000, guid: 674263834ad1ef443bff07c1937b4afb, type: 2}
   textureEnabled: 1

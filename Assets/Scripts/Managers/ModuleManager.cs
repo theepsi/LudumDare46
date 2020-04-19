@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ModuleManager : MonoBehaviour
@@ -60,9 +61,35 @@ public class ModuleManager : MonoBehaviour
             eulerAngles.x = 0;
             module.transform.eulerAngles = eulerAngles;
 
-            //GetRandom module based on Rarity, then initialize it.
-            //module.GetComponent<Module>().Init();
-            module.GetComponent<Module>().Init(availableModules[0]);
+            //Select module based on Rarity, then initialize it.
+            int moduleRarityInt = Random.Range(0, (int)ModuleRarity.ALL);
+            ModuleRarity moduleRarity = ModuleRarity.COMMON;
+
+            if (moduleRarityInt < (int)ModuleRarity.RARE)
+            {
+                Debug.Log("Spawn RARE module");
+                moduleRarity = ModuleRarity.RARE;
+            } else if (moduleRarityInt < (int)ModuleRarity.UNCOMMON)
+            {
+                Debug.Log("Spawn UNCOMMON module");
+                moduleRarity = ModuleRarity.UNCOMMON;
+            } else
+            {
+                Debug.Log("Spawn COMMON module");
+            }
+
+            moduleRarity = ModuleRarity.COMMON;
+
+            List<ModuleData> rarityModules = new List<ModuleData>();
+
+            for (int j = 0; j < availableModules.Length; ++j)
+            {
+                if (availableModules[j].moduleRarity == moduleRarity) rarityModules.Add(availableModules[j]);
+            }
+
+            int randModule = Random.Range(0, rarityModules.Count);
+
+            module.GetComponent<Module>().Init(rarityModules[randModule]);
         }
     }
 }

@@ -11,9 +11,10 @@ public enum ModuleAction
 
 public enum ModuleRarity
 {
-    COMMON = 50,
+    COMMON = 60,
     UNCOMMON = 30,
-    RARE = 20
+    RARE = 10,
+    ALL = COMMON + UNCOMMON + RARE
 }
 
 [RequireComponent(typeof(BoxCollider))]
