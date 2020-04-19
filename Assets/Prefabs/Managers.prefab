@@ -119,6 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   godMode: 0
+  onlyRare: 0
   baseRadius: 250
   enableAsteroids: 1
   mainUI: {fileID: 692950409324343375}
@@ -130,6 +131,8 @@ MonoBehaviour:
   playerPrefab: {fileID: 1068350036378775284, guid: 01f2600b2a977c741b3ea19a6ea2e1c8,
     type: 3}
   basePrefab: {fileID: 3057947248434142818, guid: d9d90ddc4f99cd84fb188ab4095bc90b,
+    type: 3}
+  linePrefab: {fileID: 2147362887064392224, guid: 80a8cfc4b36a10a4ea1cff2f349c101c,
     type: 3}
   spawnRate: 2
   spawnAmount: 2
@@ -163,6 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   availableModules:
   - {fileID: 11400000, guid: eb128e6a80d7e4a4997500b94d38690a, type: 2}
+  - {fileID: 11400000, guid: 848436569f11be349bbd5611bb6fbc0c, type: 2}
   spawnRate: 1
   spawnAmount: 3
   xyOffset: 1
