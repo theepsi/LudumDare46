@@ -139,6 +139,10 @@ public class Asteroid : MonoBehaviour
             other.GetComponent<PlayerController>().DoDamage((int)currentSize);
             DestroyAsteroid();
         }
+        else if (other.CompareTag("Base"))
+        {
+            DestroyAsteroid();
+        }
     }
 
     public void DestroyAsteroid()

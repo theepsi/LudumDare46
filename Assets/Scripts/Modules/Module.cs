@@ -83,7 +83,6 @@ public class Module : MonoBehaviour
         switch (data.moduleAction)
         {
             case ModuleAction.NONE:
-                Debug.Log("Module NONE Attached");
                 break;
             case ModuleAction.OXYGEN:
                 Debug.Log("Module OXYGEN Attached");

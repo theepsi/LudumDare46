@@ -121,14 +121,10 @@ public class PlayerController : MonoBehaviour
 
         if (moduleSlot1.transform.childCount == 0)
         {
-            Debug.Log($"Module 1 attached - {module.GetData().name}");
-
             module.OnAttached(this, moduleSlot1);
         }
         else if (moduleSlot2.transform.childCount == 0)
         {
-            Debug.Log($"Module 2 attached - {module.GetData().name}");
-
             module.OnAttached(this, moduleSlot2);
         }
         else
@@ -168,5 +164,13 @@ public class PlayerController : MonoBehaviour
         currentOxygen += amount;
 
         EventManager.TriggerEvent(Statics.Events.oxygenLost, currentOxygen);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Base"))
+        {
+            EventManager.TriggerEvent(Statics.Events.baseFound);
+        }
     }
 }
