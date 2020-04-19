@@ -167,6 +167,7 @@ MonoBehaviour:
   availableModules:
   - {fileID: 11400000, guid: eb128e6a80d7e4a4997500b94d38690a, type: 2}
   - {fileID: 11400000, guid: 848436569f11be349bbd5611bb6fbc0c, type: 2}
+  - {fileID: 11400000, guid: 70e1185b441d24047a363f1ab446891a, type: 2}
   spawnRate: 1
   spawnAmount: 3
   xyOffset: 1
