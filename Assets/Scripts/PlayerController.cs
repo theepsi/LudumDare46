@@ -80,8 +80,6 @@ public class PlayerController : MonoBehaviour
             }
             mRigidbody.velocity = newVelocity;
         }
-
-        Debug.Log(mRigidbody.velocity);
     }
 
     public void DoDamage(int damageAmount)
