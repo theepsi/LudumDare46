@@ -137,13 +137,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e80f839fbc07e40b7f3a2a75dce242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  impulseSpeed: 2.5
+  impulseSpeed: 5
   rotateSpeed: 85
   minOxygen: 0
   maxOxygen: 20
   minHull: 0
   maxHull: 4
-  maxSpeed: 10
+  maxSpeed: 8
   oxygenDeplitionRate: 1
   oxygenDeplitionAmount: 1
   moduleSlot1: {fileID: 550972151376659246}

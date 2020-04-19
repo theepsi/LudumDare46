@@ -59,11 +59,29 @@ public class PlayerController : MonoBehaviour
 
     private void ImpulseShip(float acceleration)
     {
-        if (acceleration != 0)
+        if (acceleration == 1)
         {
             mRigidbody.velocity += transform.forward * impulseSpeed * Time.deltaTime * acceleration;
             mRigidbody.velocity = new Vector3(Mathf.Min(mRigidbody.velocity.x, maxSpeed), 0, Mathf.Min(mRigidbody.velocity.z, maxSpeed));
         }
+        else if(acceleration == -1)
+        {
+            mRigidbody.velocity = mRigidbody.velocity * 0.95f;
+            Vector3 newVelocity = mRigidbody.velocity;
+
+            if (Mathf.Abs(newVelocity.x) < 0.001f)
+            {
+                newVelocity.x = 0;
+            }
+
+            if (Mathf.Abs(newVelocity.z) < 0.001f)
+            {
+                newVelocity.z = 0;
+            }
+            mRigidbody.velocity = newVelocity;
+        }
+
+        Debug.Log(mRigidbody.velocity);
     }
 
     public void DoDamage(int damageAmount)

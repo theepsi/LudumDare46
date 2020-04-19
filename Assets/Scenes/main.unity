@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   godMode: 0
-  enableAsteroids: 0
+  enableAsteroids: 1
   cameraFollow: {fileID: 1333610585}
   playerPrefab: {fileID: 1068350036378775284, guid: 01f2600b2a977c741b3ea19a6ea2e1c8,
     type: 3}
@@ -599,7 +599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   offset: {x: 0, y: 20, z: 0}
-  followSpeed: 10
+  followSpeed: 20
 --- !u!114 &1384589114 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4632423157201019146, guid: 8a61b079446953c40b5e6ab1dcad09d0,
@@ -631,7 +631,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1615311808
 Transform:
   m_ObjectHideFlags: 0
@@ -739,7 +739,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1688330153
 Transform:
   m_ObjectHideFlags: 0
