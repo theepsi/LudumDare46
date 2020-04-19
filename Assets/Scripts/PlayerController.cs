@@ -40,6 +40,18 @@ public class PlayerController : MonoBehaviour
         EventManager.StartListening(Statics.Events.moduleHitPlayer, (x) => OnModuleHitPlayer(x));
         EventManager.StartListening(Statics.Events.moduleHitAsteroid, (x) => OnModuleHitAsteroid(x));
     }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q) && moduleSlot1.GetComponentInChildren<Module>() != null)
+        {
+            moduleSlot1.GetComponentInChildren<Module>().OnDettached();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) && moduleSlot2.GetComponentInChildren<Module>() != null)
+        {
+            moduleSlot2.GetComponentInChildren<Module>().OnDettached();
+        }
+    }
 
     void FixedUpdate()
     {
