@@ -36,6 +36,10 @@ public class Module : MonoBehaviour
     private float oxygenRate = 0.5f;
     private float oxygenAmount = 1f;
 
+    //Energy
+    private Coroutine energyModule;
+    private LineRenderer lineRenderer = null;
+
     public void Init(ModuleData data)
     {
         this.data = data;
@@ -45,7 +49,7 @@ public class Module : MonoBehaviour
 
         if (data.textureEnabled && data.moduleDecal != null)
         {
-            for(int i = 0; i < decalRenderers.Length; ++i)
+            for (int i = 0; i < decalRenderers.Length; ++i)
             {
                 decalRenderers[i].material = data.moduleDecal;
             }
@@ -88,10 +92,10 @@ public class Module : MonoBehaviour
                 Debug.Log("Module OXYGEN Attached");
                 oxygenModuleAmount = 10f;
                 oxygenModule = StartCoroutine(OxygenDeployment(player));
-
                 break;
             case ModuleAction.ENERGY:
                 Debug.Log("Module ENERGY Attached");
+                if (energyModule == null) energyModule = StartCoroutine(EnergyRadar(player));
                 break;
         }
     }
@@ -108,13 +112,15 @@ public class Module : MonoBehaviour
                 break;
             case ModuleAction.OXYGEN:
                 Debug.Log("Module OXYGEN Dettached");
-
                 StopCoroutine(oxygenModule);
                 oxygenModule = null;
-
                 break;
             case ModuleAction.ENERGY:
                 Debug.Log("Module ENERGY Dettached");
+                StopCoroutine(energyModule);
+                Destroy(lineRenderer.gameObject);
+                energyModule = null;
+                lineRenderer = null;
                 break;
         }
 
@@ -156,6 +162,28 @@ public class Module : MonoBehaviour
         }
 
         OnDettached();
+    }
+
+    #endregion
+
+    #region ENERGY
+
+    private IEnumerator EnergyRadar(PlayerController player)
+    {
+        GameObject line = Instantiate(GameManager.Instance.linePrefab.gameObject);
+
+        lineRenderer = line.GetComponent<LineRenderer>();
+
+        for (; ; )
+        {
+            //Point nearest base
+            lineRenderer.SetPosition(0, player.transform.position);
+            lineRenderer.SetPosition(1, GameManager.Instance.NearestBasePosition());
+
+            line.SetActive(true);
+
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     #endregion
