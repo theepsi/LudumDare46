@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Energy
   m_EditorClassIdentifier: 
   moduleAction: 2
-  moduleRarity: 20
+  moduleRarity: 10
   moduleName: Energy
   moduleMaterial: {fileID: 2100000, guid: 674263834ad1ef443bff07c1937b4afb, type: 2}
   textureEnabled: 1
