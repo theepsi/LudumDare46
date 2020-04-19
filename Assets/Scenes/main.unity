@@ -154,10 +154,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d799a9df2c437d428cf12027a8480fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  godMode: 1
+  godMode: 0
+  baseRadius: 500
   enableAsteroids: 1
   cameraFollow: {fileID: 1333610585}
   playerPrefab: {fileID: 1068350036378775284, guid: 01f2600b2a977c741b3ea19a6ea2e1c8,
+    type: 3}
+  basePrefab: {fileID: 3057947248434142818, guid: d9d90ddc4f99cd84fb188ab4095bc90b,
     type: 3}
   spawnRate: 2
   spawnAmount: 2
@@ -224,7 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnRate: 1
-  spawnAmount: 3
+  spawnAmount: 2
   xyOffset: 1
 --- !u!114 &134790956
 MonoBehaviour:
@@ -240,8 +243,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   availableModules:
   - {fileID: 11400000, guid: eb128e6a80d7e4a4997500b94d38690a, type: 2}
-  spawnRate: 2
-  spawnAmount: 2
+  spawnRate: 1
+  spawnAmount: 3
   xyOffset: 1
 --- !u!114 &669763820 stripped
 MonoBehaviour:
@@ -435,7 +438,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1101656613}
   - component: {fileID: 1101656612}
-  - component: {fileID: 1101656611}
   - component: {fileID: 1101656610}
   m_Layer: 0
   m_Name: RadarCam
@@ -475,14 +477,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!81 &1101656611
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1101656608}
-  m_Enabled: 1
 --- !u!20 &1101656612
 Camera:
   m_ObjectHideFlags: 0
