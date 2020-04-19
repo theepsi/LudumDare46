@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Asteroid
+  - FreeModule
+  - Module
   layers:
   - Default
   - TransparentFX

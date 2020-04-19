@@ -141,7 +141,7 @@ public class Asteroid : MonoBehaviour
         }
     }
 
-    private void DestroyAsteroid()
+    public void DestroyAsteroid()
     {
         ready = false;
         gameObject.SetActive(false);

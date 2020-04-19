@@ -11,6 +11,7 @@ public static class Statics
 
         public static readonly string gameOver = "gameOver";
 
-
+        public static readonly string moduleHitPlayer = "moduleHitPlayer";
+        public static readonly string moduleHitAsteroid = "moduleHitAsteroid";
     }
 }

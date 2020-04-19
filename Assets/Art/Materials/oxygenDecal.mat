@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DecalMaterial
+  m_Name: oxygenDecal
   m_Shader: {fileID: -6465566751694194690, guid: 566637c98064f634085e502227125b79,
     type: 3}
   m_ShaderKeywords: 
@@ -26,4 +26,4 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats: []
     m_Colors:
-    - _Color: {r: 0, g: 0.42745098, b: 0.5568628, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 0}

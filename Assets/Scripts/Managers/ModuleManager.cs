@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AsteroidSpawner : MonoBehaviour
+public class ModuleManager : MonoBehaviour
 {
+    public ModuleData[] availableModules;
+
     public float spawnRate = 2f;
     public int spawnAmount = 2;
     public float xyOffset = 1;
@@ -23,16 +25,13 @@ public class AsteroidSpawner : MonoBehaviour
 
     public void StopSpawner()
     {
-        if (spawner != null)
-        {
-            StopCoroutine(spawner);
-            spawner = null;
-        }
+        StopCoroutine(spawner);
+        spawner = null;
     }
 
     private IEnumerator Spawner()
     {
-        for (;;)
+        for (; ; )
         {
             yield return new WaitForSeconds(spawnRate);
 
@@ -44,7 +43,7 @@ public class AsteroidSpawner : MonoBehaviour
     {
         for (int i = 0; i < spawnAmount; ++i)
         {
-            GameObject asteroid = ObjectPooler.Instance.GetPooledObject("Asteroid");
+            GameObject module = ObjectPooler.Instance.GetPooledObject("Module");
 
             float randomX = Random.Range(-xyOffset, xyOffset + 1);
             float randomY = Random.Range(-xyOffset, xyOffset + 1);
@@ -54,9 +53,16 @@ public class AsteroidSpawner : MonoBehaviour
                 randomY = Random.Range(-xyOffset, xyOffset + 1);
             }
 
-            asteroid.transform.position = mainCam.ViewportToWorldPoint(new Vector3(randomX, randomY, mainCam.transform.position.y));
-            AsteroidSize randomSize = (AsteroidSize)Random.Range(1, System.Enum.GetNames(typeof(AsteroidSize)).Length);
-            asteroid.GetComponent<Asteroid>().Init(randomSize, GameManager.Instance.player.transform.position, false);
+            module.transform.position = mainCam.ViewportToWorldPoint(new Vector3(randomX, randomY, mainCam.transform.position.y));
+
+            module.transform.rotation = Random.rotation;
+            Vector3 eulerAngles = module.transform.eulerAngles;
+            eulerAngles.x = 0;
+            module.transform.eulerAngles = eulerAngles;
+
+            //GetRandom module based on Rarity, then initialize it.
+            //module.GetComponent<Module>().Init();
+            module.GetComponent<Module>().Init(availableModules[0]);
         }
     }
 }
