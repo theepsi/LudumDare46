@@ -25,6 +25,9 @@ public class PlayerController : MonoBehaviour
 
     private Coroutine oxygenDeplition;
 
+    private Module module1 = null;
+    private Module module2 = null;
+
     void Start()
     {
         mRigidbody = GetComponent<Rigidbody>();
@@ -32,6 +35,9 @@ public class PlayerController : MonoBehaviour
         currentOxygen = maxOxygen;
 
         oxygenDeplition = StartCoroutine(OxygenDeplition());
+
+        EventManager.StartListening(Statics.Events.moduleHitPlayer, (x) => OnModuleHitPlayer(x));
+        EventManager.StartListening(Statics.Events.moduleHitAsteroid, (x) => OnModuleHitAsteroid(x));
     }
 
     void FixedUpdate()
@@ -86,6 +92,56 @@ public class PlayerController : MonoBehaviour
             }
 
             EventManager.TriggerEvent(Statics.Events.oxygenLost, currentOxygen);
+        }
+    }
+
+    private void OnModuleHitPlayer(object value)
+    {
+        Module module = (Module)value;
+
+        if (module1 == null)
+        {
+            Debug.Log($"Module 1 attached - {module.GetData().name}");
+            module1 = module;
+            module1.transform.SetParent(transform, false);
+            module1.attached = true;
+        }
+        else if (module2 == null)
+        {
+            Debug.Log($"Module 2 attached - {module.GetData().name}");
+            module2 = module;
+            module2.transform.SetParent(transform, false);
+            module2.attached = true;
+        }
+        else
+        {
+            Debug.Log("Cannot attach module");
+        }
+
+        if (module.attached)
+        {
+            //Sound of module attaching, on finish do next:
+            module.OnAttached();
+        }
+    }
+
+    private void OnModuleHitAsteroid(object value)
+    {
+        Module module = (Module)value;
+        
+        if (module == module1)
+        {
+            module.transform.SetParent(null);
+            module.OnDettached();
+            module1 = null;
+            module.gameObject.SetActive(false);
+        }
+        if (module == module2)
+        {
+            module.transform.SetParent(null);
+            module.OnDettached();
+            module2 = null;
+            module.gameObject.SetActive(false);
         }
     }
 }
