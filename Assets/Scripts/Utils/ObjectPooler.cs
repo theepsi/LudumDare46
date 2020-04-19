@@ -10,6 +10,8 @@ public class ObjectPooler : MonoBehaviour
 
     private Dictionary<string, PooledObject> pools;
 
+    public Transform poolParent;
+
     [Serializable]
     public struct PooledObject
     {
@@ -32,18 +34,7 @@ public class ObjectPooler : MonoBehaviour
             Destroy(this);
 
         // Initialize pools
-        pools = new Dictionary<string, PooledObject>();
-        int count = PooledObjects.Count;
-        for (int i = 0; i < count; ++i)
-        {
-            for (int j = 0; j < PooledObjects[i].PooledAmount; ++j)
-            {
-                GameObject go = Instantiate(PooledObjects[i].objectToPool, transform);
-                go.SetActive(false);
-                PooledObjects[i].Pool.Add(go);
-            }
-            pools.Add(PooledObjects[i].objectToPool.name, PooledObjects[i]);
-        }
+        InitializePools();
     }
 
     public GameObject GetPooledObject(string type, Transform parent = null)
@@ -61,7 +52,7 @@ public class ObjectPooler : MonoBehaviour
             }
         }
 
-        GameObject go = Instantiate(pools[type].objectToPool, transform);
+        GameObject go = Instantiate(pools[type].objectToPool, poolParent);
 
         go.SetActive(false);
 
@@ -72,5 +63,33 @@ public class ObjectPooler : MonoBehaviour
 
         pools[type].Pool.Add(go);
         return go;
+    }
+
+    public void InitializePools()
+    {
+        Clean();
+
+        // Initialize pools
+        pools = new Dictionary<string, PooledObject>();
+        int count = PooledObjects.Count;
+        for (int i = 0; i < count; ++i)
+        {
+            PooledObjects[i].Pool.Clear();
+            for (int j = 0; j < PooledObjects[i].PooledAmount; ++j)
+            {
+                GameObject go = Instantiate(PooledObjects[i].objectToPool, poolParent);
+                go.SetActive(false);
+                PooledObjects[i].Pool.Add(go);
+            }
+            pools.Add(PooledObjects[i].objectToPool.name, PooledObjects[i]);
+        }
+    }
+
+    private void Clean()
+    {
+        for(int i= 0; i < poolParent.childCount; ++i)
+        {
+            Destroy(poolParent.GetChild(i).gameObject);
+        }
     }
 }

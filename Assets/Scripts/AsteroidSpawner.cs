@@ -11,9 +11,9 @@ public class AsteroidSpawner : MonoBehaviour
     private Coroutine spawner;
     private Camera mainCam;
 
-    private void Start()
+    public void Init(Camera mainCam)
     {
-        mainCam = Camera.main;
+        this.mainCam = mainCam;
     }
 
     public void StartSpawner()
