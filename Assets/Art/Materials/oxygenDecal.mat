@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DecalMaterial
+  m_Name: oxygenDecal
   m_Shader: {fileID: -6465566751694194690, guid: 566637c98064f634085e502227125b79,
     type: 3}
   m_ShaderKeywords: 
