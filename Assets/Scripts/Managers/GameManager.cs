@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,7 +16,14 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance = null;
 
-    public CameraFollow cameraFollow;
+    public GameObject mainUI;
+
+    public GameObject resumePanel;
+    public TextMeshProUGUI resumePanelText;
+    public Image resumePanelImage;
+
+    public Sprite winImage;
+    public Sprite lostImage;
 
     public GameObject playerPrefab;
     public GameObject basePrefab;
@@ -27,6 +37,7 @@ public class GameManager : MonoBehaviour
     private AsteroidSpawner asteroidSpawner;
     private UIManager uiManager;
     private ModuleManager moduleManager;
+    private SceneManager sceneManager;
 
     private List<GameObject> baseList;
 
@@ -42,27 +53,48 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        baseList = new List<GameObject>();
+        sceneManager = GetComponent<SceneManager>();
+        EventManager.StartListening(Statics.Events.playGame, StartGame);
 
-        EventManager.StartListening(Statics.Events.gameOver, OnGameOver);
-        EventManager.StartListening(Statics.Events.baseFound, OnEndGame);
+        sceneManager.LoadMainMenu();
+    }
 
-        asteroidSpawner = gameObject.GetComponent<AsteroidSpawner>();
-        uiManager = gameObject.GetComponent<UIManager>();
-        moduleManager = gameObject.GetComponent<ModuleManager>();
+    public void StartGame()
+    {
+        Action onGameSceneLoaded = () =>
+        {
+            mainUI.SetActive(true);
 
-        player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity).GetComponent<PlayerController>();
-        cameraFollow.SetTarget(player.transform);
+            baseList = new List<GameObject>();
 
-        if (enableAsteroids) asteroidSpawner.StartSpawner();
+            EventManager.StartListening(Statics.Events.gameOver, OnGameOver);
+            EventManager.StartListening(Statics.Events.baseFound, OnEndGame);
 
-        uiManager.Init(player.maxHull, player.minHull, player.maxOxygen, player.minOxygen);
+            player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity).GetComponent<PlayerController>();
 
-        moduleManager.StartSpawner();
+            CameraFollow cam = Camera.main.GetComponent<CameraFollow>();
+            cam.SetTarget(player.transform);
 
-        CreateBases();
+            asteroidSpawner = gameObject.GetComponent<AsteroidSpawner>();
+            moduleManager = gameObject.GetComponent<ModuleManager>();
 
-        StartCoroutine(CheckBasesAreTooFarAway());
+            uiManager = gameObject.GetComponent<UIManager>();
+
+            asteroidSpawner.Init(Camera.main);
+            moduleManager.Init(Camera.main);
+
+            if (enableAsteroids) asteroidSpawner.StartSpawner();
+
+            uiManager.Init(player.maxHull, player.minHull, player.maxOxygen, player.minOxygen);
+
+            moduleManager.StartSpawner();
+
+            CreateBases();
+
+            StartCoroutine(CheckBasesAreTooFarAway());
+        };
+
+        sceneManager.LoadGame(onGameSceneLoaded);
     }
 
     /// <summary>
@@ -70,12 +102,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void OnEndGame()
     {
-        Debug.Log("YOU WIN!");
-        Destroy(player.gameObject);
-        asteroidSpawner.StopSpawner();
-        moduleManager.StopSpawner();
-
-        StopAllCoroutines();
+        StartCoroutine(ShowEndScreen("YOU SURVIVED!", winImage));
     }
 
     /// <summary>
@@ -83,12 +110,24 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void OnGameOver()
     {
-        Debug.Log("YOU LOST!");
+        StartCoroutine(ShowEndScreen("SHIP DESTROYED!", lostImage));
+    }
+
+    private IEnumerator ShowEndScreen(string message, Sprite winorlost)
+    {
         Destroy(player.gameObject);
+
         asteroidSpawner.StopSpawner();
         moduleManager.StopSpawner();
 
-        StopAllCoroutines();
+        yield return new WaitForSeconds(2f);
+
+        ObjectPooler.Instance.InitializePools();
+
+        mainUI.SetActive(false);
+        resumePanel.SetActive(true);
+        resumePanelText.text = message;
+        resumePanelImage.sprite = winorlost;
     }
 
     private void CreateBases()
@@ -141,7 +180,16 @@ public class GameManager : MonoBehaviour
 
     private Vector3 RandomPointOnCircleEdge(float radius)
     {
-        Vector2 vector = Random.insideUnitCircle.normalized * radius;
+        Vector2 vector = UnityEngine.Random.insideUnitCircle.normalized * radius;
         return new Vector3(vector.x, 0, vector.y);
+    }
+
+    public void RestartMainMenu()
+    {
+        StopAllCoroutines();
+
+        mainUI.SetActive(false);
+        resumePanel.SetActive(false);
+        sceneManager.LoadMainMenu();
     }
 }

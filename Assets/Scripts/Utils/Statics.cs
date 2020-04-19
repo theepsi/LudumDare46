@@ -10,10 +10,11 @@ public static class Statics
         public static readonly string oxygenLost = "oxygenLost";
 
         public static readonly string gameOver = "gameOver";
+        public static readonly string baseFound = "baseFound";
 
         public static readonly string moduleHitPlayer = "moduleHitPlayer";
         public static readonly string moduleHitAsteroid = "moduleHitAsteroid";
 
-        public static readonly string baseFound = "baseFound";
+        public static readonly string playGame = "playGame";
     }
 }
