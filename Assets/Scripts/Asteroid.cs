@@ -16,7 +16,7 @@ public class Asteroid : MonoBehaviour
 {
     public AsteroidSize currentSize = AsteroidSize.BIG;
     public Vector2 RandomForce;
-
+    
     private Rigidbody mRigidbody;
 
     private bool ready = false;
@@ -43,9 +43,9 @@ public class Asteroid : MonoBehaviour
         }
         else
         {
-            // direction already applied
             targetDir = target;
         }
+
         ready = true;
         gameObject.SetActive(true);
     }
@@ -54,10 +54,10 @@ public class Asteroid : MonoBehaviour
     {
         if (ready)
         {
-            mRigidbody.AddForce(targetDir * Random.Range(RandomForce[0], RandomForce[1]), ForceMode.Impulse);
+            mRigidbody.AddForce(targetDir.normalized * Random.Range(RandomForce[0], RandomForce[1]), ForceMode.Impulse);
             ready = false;
         }
-
+        
         if (CheckForDestruction())
         {
             DestroyAsteroid();
@@ -81,7 +81,7 @@ public class Asteroid : MonoBehaviour
 
         }
     }
-
+    
     private void Break()
     {
         DestroyAsteroid();
