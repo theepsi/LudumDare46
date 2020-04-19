@@ -25,8 +25,11 @@ public class ModuleManager : MonoBehaviour
 
     public void StopSpawner()
     {
-        StopCoroutine(spawner);
-        spawner = null;
+        if (spawner != null)
+        {
+            StopCoroutine(spawner);
+            spawner = null;
+        }
     }
 
     private IEnumerator Spawner()

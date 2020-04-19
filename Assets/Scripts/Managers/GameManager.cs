@@ -63,9 +63,7 @@ public class GameManager : MonoBehaviour
         CreateBases();
 
         StartCoroutine(CheckBasesAreTooFarAway());
-
     }
-
 
     /// <summary>
     /// Function to finish and win the game
@@ -73,6 +71,11 @@ public class GameManager : MonoBehaviour
     private void OnEndGame()
     {
         Debug.Log("YOU WIN!");
+        Destroy(player.gameObject);
+        asteroidSpawner.StopSpawner();
+        moduleManager.StopSpawner();
+
+        StopAllCoroutines();
     }
 
     /// <summary>
@@ -83,6 +86,9 @@ public class GameManager : MonoBehaviour
         Debug.Log("YOU LOST!");
         Destroy(player.gameObject);
         asteroidSpawner.StopSpawner();
+        moduleManager.StopSpawner();
+
+        StopAllCoroutines();
     }
 
     private void CreateBases()
@@ -93,7 +99,7 @@ public class GameManager : MonoBehaviour
         Vector3 secondRandomBasePosition = Quaternion.Euler(0, 120, 0) * firstRandomBasePosition + player.transform.position;
         Vector3 thirdRandomBasePosition = Quaternion.Euler(0, -120, 0) * firstRandomBasePosition + player.transform.position;
 
-       firstRandomBasePosition += player.transform.position;
+        firstRandomBasePosition += player.transform.position;
 
         baseList.Add(Instantiate(basePrefab, firstRandomBasePosition, Quaternion.identity));
         baseList.Add(Instantiate(basePrefab, secondRandomBasePosition, Quaternion.identity));
@@ -116,16 +122,19 @@ public class GameManager : MonoBehaviour
         for (; ; )
         {
             yield return new WaitForSeconds(3f);
-            distances = new List<float>();
-
-            for (int i = 0; i < baseList.Count; ++i)
+            if (player != null)
             {
-                distances.Add(Vector3.Distance(baseList[i].transform.position,player.transform.position));
-            }
+                distances = new List<float>();
 
-            if (distances.Min() > baseRadius)
-            {
-                CreateBases();
+                for (int i = 0; i < baseList.Count; ++i)
+                {
+                    distances.Add(Vector3.Distance(baseList[i].transform.position, player.transform.position));
+                }
+
+                if (distances.Min() > baseRadius)
+                {
+                    CreateBases();
+                }
             }
         }
     }
