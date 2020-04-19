@@ -25,8 +25,8 @@ public class PlayerController : MonoBehaviour
 
     private Coroutine oxygenDeplition;
 
-    private Module module1 = null;
-    private Module module2 = null;
+    public GameObject moduleSlot1;
+    public GameObject moduleSlot2;
 
     void Start()
     {
@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
         currentHull = maxHull;
         currentOxygen = maxOxygen;
 
-        oxygenDeplition = StartCoroutine(OxygenDeplition());
+        if (!GameManager.Instance.godMode) oxygenDeplition = StartCoroutine(OxygenDeplition());
 
         EventManager.StartListening(Statics.Events.moduleHitPlayer, (x) => OnModuleHitPlayer(x));
         EventManager.StartListening(Statics.Events.moduleHitAsteroid, (x) => OnModuleHitAsteroid(x));
@@ -66,6 +66,8 @@ public class PlayerController : MonoBehaviour
 
     public void DoDamage(int damageAmount)
     {
+        if (GameManager.Instance.godMode) return;
+
         currentHull -= damageAmount;
 
         if(currentHull <= 0)
@@ -99,19 +101,19 @@ public class PlayerController : MonoBehaviour
     {
         Module module = (Module)value;
 
-        if (module1 == null)
+        if (moduleSlot1.transform.childCount == 0)
         {
             Debug.Log($"Module 1 attached - {module.GetData().name}");
-            module1 = module;
-            module1.transform.SetParent(transform, false);
-            module1.attached = true;
+            module.transform.SetParent(moduleSlot1.transform, false);
+            module.transform.localPosition = Vector3.zero;
+            module.attached = true;
         }
-        else if (module2 == null)
+        else if (moduleSlot2.transform.childCount == 0)
         {
             Debug.Log($"Module 2 attached - {module.GetData().name}");
-            module2 = module;
-            module2.transform.SetParent(transform, false);
-            module2.attached = true;
+            module.transform.SetParent(moduleSlot2.transform, false);
+            module.transform.localPosition = Vector3.zero;
+            module.attached = true;
         }
         else
         {
@@ -128,19 +130,19 @@ public class PlayerController : MonoBehaviour
     private void OnModuleHitAsteroid(object value)
     {
         Module module = (Module)value;
-        
-        if (module == module1)
+
+        module.attached = false;
+
+        if (module == moduleSlot1.GetComponentInChildren<Module>())
         {
             module.transform.SetParent(null);
             module.OnDettached();
-            module1 = null;
             module.gameObject.SetActive(false);
         }
-        if (module == module2)
+        else if (module == moduleSlot2.GetComponentInChildren<Module>())
         {
             module.transform.SetParent(null);
             module.OnDettached();
-            module2 = null;
             module.gameObject.SetActive(false);
         }
     }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public bool godMode = false;
+
     public static GameManager Instance = null;
 
     public CameraFollow cameraFollow;
@@ -43,7 +45,8 @@ public class GameManager : MonoBehaviour
         asteroidSpawner.StartSpawner();
 
         uiManager.Init(player.maxHull, player.minHull, player.maxOxygen, player.minOxygen);
-        
+
+        moduleManager.StartSpawner();
     }
 
     private void OnGameOver()

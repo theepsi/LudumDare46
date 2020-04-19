@@ -13,6 +13,11 @@ public class ModuleManager : MonoBehaviour
     private Coroutine spawner;
     private Camera mainCam;
 
+    private void Start()
+    {
+        mainCam = Camera.main;
+    }
+
     public void StartSpawner()
     {
         spawner = StartCoroutine(Spawner());
@@ -52,6 +57,7 @@ public class ModuleManager : MonoBehaviour
 
             //GetRandom module based on Rarity, then initialize it.
             //module.GetComponent<Module>().Init();
+            module.GetComponent<Module>().Init(availableModules[0]);
         }
     }
 }

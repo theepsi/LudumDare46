@@ -11,9 +11,9 @@ public enum ModuleAction
 
 public enum ModuleRarity
 {
-    COMMON = 0,
-    UNCOMMON,
-    RARE
+    COMMON = 50,
+    UNCOMMON = 30,
+    RARE = 20
 }
 
 [RequireComponent(typeof(BoxCollider))]
@@ -22,13 +22,29 @@ public class Module : MonoBehaviour
     private ModuleData data;
     public bool attached = false;
 
+    public MeshRenderer pipeRenderer;
+
+    public MeshRenderer[] decalRenderers;
+    public GameObject decalParent;
+
     //TODO: rest of the properties
 
     public void Init(ModuleData data)
     {
         this.data = data;
 
-        //Initialize module object, waiting for art
+        pipeRenderer.material = data.moduleMaterial;
+        decalParent.SetActive(data.textureEnabled);
+
+        if (data.textureEnabled && data.moduleDecal != null)
+        {
+            for(int i = 0; i < decalRenderers.Length; ++i)
+            {
+                decalRenderers[i].material = data.moduleDecal;
+            }
+        }
+
+        gameObject.SetActive(true);
     }
 
     public ModuleData GetData()
@@ -55,7 +71,7 @@ public class Module : MonoBehaviour
 
     public void OnDettached()
     {
-        //Play clip
+        //Play clip?
         switch (data.moduleAction)
         {
             case ModuleAction.NONE:

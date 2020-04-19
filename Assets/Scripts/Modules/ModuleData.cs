@@ -9,11 +9,10 @@ public class ModuleData : ScriptableObject
     public ModuleRarity moduleRarity;
 
     public string moduleName;
-    public string prefabName;
     public Material moduleMaterial;
 
     public bool textureEnabled;
-    public Texture moduleTexture;
+    public Material moduleDecal;
 
     public AudioClip onAttachedSound;
 }
