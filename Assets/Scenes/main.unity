@@ -154,7 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d799a9df2c437d428cf12027a8480fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  godMode: 1
+  godMode: 0
+  enableAsteroids: 0
   cameraFollow: {fileID: 1333610585}
   playerPrefab: {fileID: 1068350036378775284, guid: 01f2600b2a977c741b3ea19a6ea2e1c8,
     type: 3}

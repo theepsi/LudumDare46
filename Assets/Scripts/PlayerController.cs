@@ -2,17 +2,18 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(BoxCollider))]
 public class PlayerController : MonoBehaviour
 {
     public float impulseSpeed = 2.2f;
     public float rotateSpeed = 85f;
 
     public float minOxygen = 0;
-    public float maxOxygen = 10;
+    public float maxOxygen = 20;
 
     public float minHull = 0;
     public float maxHull = 4;
+
+    public float maxSpeed = 1f;
 
     [Tooltip("Deplition rate in seconds")]
     public float oxygenDeplitionRate = 1f;
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviour
         if (acceleration != 0)
         {
             mRigidbody.velocity += transform.forward * impulseSpeed * Time.deltaTime * acceleration;
+            mRigidbody.velocity = new Vector3(Mathf.Min(mRigidbody.velocity.x, maxSpeed), 0, Mathf.Min(mRigidbody.velocity.z, maxSpeed));
         }
     }
 
@@ -70,7 +72,7 @@ public class PlayerController : MonoBehaviour
 
         currentHull -= damageAmount;
 
-        if(currentHull <= 0)
+        if (currentHull <= 0)
         {
             currentHull = 0;
             EventManager.TriggerEvent(Statics.Events.gameOver);
@@ -104,26 +106,18 @@ public class PlayerController : MonoBehaviour
         if (moduleSlot1.transform.childCount == 0)
         {
             Debug.Log($"Module 1 attached - {module.GetData().name}");
-            module.transform.SetParent(moduleSlot1.transform, false);
-            module.transform.localPosition = Vector3.zero;
-            module.attached = true;
+
+            module.OnAttached(this, moduleSlot1);
         }
         else if (moduleSlot2.transform.childCount == 0)
         {
             Debug.Log($"Module 2 attached - {module.GetData().name}");
-            module.transform.SetParent(moduleSlot2.transform, false);
-            module.transform.localPosition = Vector3.zero;
-            module.attached = true;
+
+            module.OnAttached(this, moduleSlot2);
         }
         else
         {
             Debug.Log("Cannot attach module");
-        }
-
-        if (module.attached)
-        {
-            //Sound of module attaching, on finish do next:
-            module.OnAttached();
         }
     }
 
@@ -133,17 +127,30 @@ public class PlayerController : MonoBehaviour
 
         module.attached = false;
 
-        if (module == moduleSlot1.GetComponentInChildren<Module>())
+        if (module == moduleSlot1.GetComponentInChildren<Module>() || module == moduleSlot2.GetComponentInChildren<Module>())
         {
-            module.transform.SetParent(null);
             module.OnDettached();
-            module.gameObject.SetActive(false);
         }
-        else if (module == moduleSlot2.GetComponentInChildren<Module>())
+    }
+
+    public void StopOxygenCoroutine()
+    {
+        if (oxygenDeplition != null)
         {
-            module.transform.SetParent(null);
-            module.OnDettached();
-            module.gameObject.SetActive(false);
+            StopCoroutine(oxygenDeplition);
+            oxygenDeplition = null;
         }
+    }
+
+    public float GetCurrentOxygen()
+    {
+        return currentOxygen;
+    }
+
+    public void AddOxygenAmount(float amount)
+    {
+        currentOxygen += amount;
+
+        EventManager.TriggerEvent(Statics.Events.oxygenLost, currentOxygen);
     }
 }

@@ -41,6 +41,8 @@ GameObject:
   - component: {fileID: 7050044649704537058}
   - component: {fileID: 1641129854}
   - component: {fileID: 1641129853}
+  - component: {fileID: 8486107880785334802}
+  - component: {fileID: 988443294399932902}
   - component: {fileID: 1641129852}
   m_Layer: 0
   m_Name: SpaceShip
@@ -95,8 +97,34 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.27, y: 0.6276392, z: 2.4187512}
-  m_Center: {x: 0, y: 0.24755716, z: 0.06762385}
+  m_Size: {x: 0.7645079, y: 0.6276392, z: 2.4187512}
+  m_Center: {x: -0.004768789, y: 0.24755716, z: 0.06762385}
+--- !u!65 &8486107880785334802
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1068350036378775284}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.0872846, y: 1, z: 1.5531797}
+  m_Center: {x: 0.009537458, y: 0, z: -0.047688007}
+--- !u!65 &988443294399932902
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1068350036378775284}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.6991367, y: 1, z: 0.19884324}
+  m_Center: {x: 0.0047688484, y: 0, z: -0.40057838}
 --- !u!114 &1641129852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,9 +140,10 @@ MonoBehaviour:
   impulseSpeed: 2.5
   rotateSpeed: 85
   minOxygen: 0
-  maxOxygen: 10
+  maxOxygen: 20
   minHull: 0
   maxHull: 4
+  maxSpeed: 10
   oxygenDeplitionRate: 1
   oxygenDeplitionAmount: 1
   moduleSlot1: {fileID: 550972151376659246}
