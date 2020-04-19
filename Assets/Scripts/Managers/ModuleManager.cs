@@ -69,11 +69,13 @@ public class ModuleManager : MonoBehaviour
             {
                 Debug.Log("Spawn RARE module");
                 moduleRarity = ModuleRarity.RARE;
-            } else if (moduleRarityInt < (int)ModuleRarity.UNCOMMON)
+            }
+            else if (moduleRarityInt < (int)ModuleRarity.UNCOMMON)
             {
                 Debug.Log("Spawn UNCOMMON module");
                 moduleRarity = ModuleRarity.UNCOMMON;
-            } else
+            }
+            else
             {
                 Debug.Log("Spawn COMMON module");
             }
@@ -87,9 +89,12 @@ public class ModuleManager : MonoBehaviour
                 if (availableModules[j].moduleRarity == moduleRarity) rarityModules.Add(availableModules[j]);
             }
 
-            int randModule = Random.Range(0, rarityModules.Count);
+            if (rarityModules.Count > 0)
+            {
+                int randModule = Random.Range(0, rarityModules.Count);
 
-            module.GetComponent<Module>().Init(rarityModules[randModule]);
+                module.GetComponent<Module>().Init(rarityModules[randModule]);
+            }
         }
     }
 }
