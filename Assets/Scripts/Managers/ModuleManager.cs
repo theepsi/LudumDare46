@@ -55,6 +55,11 @@ public class ModuleManager : MonoBehaviour
 
             module.transform.position = mainCam.ViewportToWorldPoint(new Vector3(randomX, randomY, mainCam.transform.position.y));
 
+            module.transform.rotation = Random.rotation;
+            Vector3 eulerAngles = module.transform.eulerAngles;
+            eulerAngles.x = 0;
+            module.transform.eulerAngles = eulerAngles;
+
             //GetRandom module based on Rarity, then initialize it.
             //module.GetComponent<Module>().Init();
             module.GetComponent<Module>().Init(availableModules[0]);

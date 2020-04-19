@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public bool godMode = false;
 
+    public bool enableAsteroids = true;
+
     public static GameManager Instance = null;
 
     public CameraFollow cameraFollow;
@@ -42,7 +44,7 @@ public class GameManager : MonoBehaviour
         player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity).GetComponent<PlayerController>();
         cameraFollow.SetTarget(player.transform);
 
-        asteroidSpawner.StartSpawner();
+        if (enableAsteroids) asteroidSpawner.StartSpawner();
 
         uiManager.Init(player.maxHull, player.minHull, player.maxOxygen, player.minOxygen);
 
