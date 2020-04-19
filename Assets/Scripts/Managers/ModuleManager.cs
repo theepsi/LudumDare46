@@ -68,7 +68,7 @@ public class ModuleManager : MonoBehaviour
             ModuleRarity moduleRarity = ModuleRarity.COMMON;
             if (GameManager.Instance.onlyRare)
             {
-                moduleRarity = ModuleRarity.RARE;
+                moduleRarity = ModuleRarity.UNCOMMON;
             }
             else
             {
