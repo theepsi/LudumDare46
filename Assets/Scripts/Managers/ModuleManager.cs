@@ -66,14 +66,20 @@ public class ModuleManager : MonoBehaviour
             //Select module based on Rarity, then initialize it.
             int moduleRarityInt = Random.Range(0, (int)ModuleRarity.ALL);
             ModuleRarity moduleRarity = ModuleRarity.COMMON;
-
-            if (moduleRarityInt < (int)ModuleRarity.RARE)
+            if (GameManager.Instance.onlyRare)
             {
                 moduleRarity = ModuleRarity.RARE;
             }
-            else if (moduleRarityInt < (int)ModuleRarity.UNCOMMON)
+            else
             {
-                moduleRarity = ModuleRarity.UNCOMMON;
+                if (moduleRarityInt < (int)ModuleRarity.RARE)
+                {
+                    moduleRarity = ModuleRarity.RARE;
+                }
+                else if (moduleRarityInt < (int)ModuleRarity.UNCOMMON)
+                {
+                    moduleRarity = ModuleRarity.UNCOMMON;
+                }
             }
 
             List<ModuleData> rarityModules = new List<ModuleData>();

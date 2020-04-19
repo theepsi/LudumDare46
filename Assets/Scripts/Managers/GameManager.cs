@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public bool godMode = false;
+    public bool onlyRare = false;
 
     public float baseRadius = 10f;
 
@@ -27,6 +28,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject playerPrefab;
     public GameObject basePrefab;
+    
+    public LineRenderer linePrefab;
 
     public float spawnRate = 2f;
     public int spawnAmount = 2;
@@ -176,6 +179,23 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
+    public Vector3 NearestBasePosition()
+    {
+        float distance = baseRadius * 1.1f;
+        GameObject nearestBase = null;
+
+        for (int i = 0; i < baseList.Count; ++i)
+        {
+            float baseDistance = Vector3.Distance(baseList[i].transform.position, player.transform.position);
+            if (distance > baseDistance)
+            {
+                distance = baseDistance;
+                nearestBase = baseList[i];
+            }
+        }
+
+        return nearestBase.transform.position;
     }
 
     private Vector3 RandomPointOnCircleEdge(float radius)
