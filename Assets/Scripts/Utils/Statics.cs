@@ -13,5 +13,7 @@ public static class Statics
 
         public static readonly string moduleHitPlayer = "moduleHitPlayer";
         public static readonly string moduleHitAsteroid = "moduleHitAsteroid";
+
+        public static readonly string baseFound = "baseFound";
     }
 }

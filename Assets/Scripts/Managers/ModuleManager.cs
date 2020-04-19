@@ -66,20 +66,12 @@ public class ModuleManager : MonoBehaviour
 
             if (moduleRarityInt < (int)ModuleRarity.RARE)
             {
-                Debug.Log("Spawn RARE module");
                 moduleRarity = ModuleRarity.RARE;
             }
             else if (moduleRarityInt < (int)ModuleRarity.UNCOMMON)
             {
-                Debug.Log("Spawn UNCOMMON module");
                 moduleRarity = ModuleRarity.UNCOMMON;
             }
-            else
-            {
-                Debug.Log("Spawn COMMON module");
-            }
-
-            moduleRarity = ModuleRarity.COMMON;
 
             List<ModuleData> rarityModules = new List<ModuleData>();
 

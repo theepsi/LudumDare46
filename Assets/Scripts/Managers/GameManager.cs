@@ -43,7 +43,10 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         baseList = new List<GameObject>();
+
         EventManager.StartListening(Statics.Events.gameOver, OnGameOver);
+        EventManager.StartListening(Statics.Events.baseFound, OnEndGame);
+
         asteroidSpawner = gameObject.GetComponent<AsteroidSpawner>();
         uiManager = gameObject.GetComponent<UIManager>();
         moduleManager = gameObject.GetComponent<ModuleManager>();
@@ -60,11 +63,24 @@ public class GameManager : MonoBehaviour
         CreateBases();
 
         StartCoroutine(CheckBasesAreTooFarAway());
+
     }
 
+
+    /// <summary>
+    /// Function to finish and win the game
+    /// </summary>
+    private void OnEndGame()
+    {
+        Debug.Log("YOU WIN!");
+    }
+
+    /// <summary>
+    /// Function for losing the game
+    /// </summary>
     private void OnGameOver()
     {
-        Debug.Log("he perdio");
+        Debug.Log("YOU LOST!");
         Destroy(player.gameObject);
         asteroidSpawner.StopSpawner();
     }

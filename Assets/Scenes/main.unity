@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   godMode: 0
-  baseRadius: 500
+  baseRadius: 100
   enableAsteroids: 1
   cameraFollow: {fileID: 1333610585}
   playerPrefab: {fileID: 1068350036378775284, guid: 01f2600b2a977c741b3ea19a6ea2e1c8,
