@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,6 +28,8 @@ public class Asteroid : MonoBehaviour
 
     private float normalizedExtraScreen;
 
+    private Vector3 rotateDirection;
+
     private void Awake()
     {
         mRigidbody = GetComponent<Rigidbody>();
@@ -38,8 +41,12 @@ public class Asteroid : MonoBehaviour
         breakPartner = null;
         currentSize = size;
         mRigidbody.velocity = Vector3.zero;
+        mRigidbody.rotation = Quaternion.identity;
 
         this.normalizedExtraScreen = normalizedExtraScreen;
+
+        transform.rotation = Quaternion.identity;
+        rotateDirection = Random.insideUnitCircle.normalized;
 
         ApplySize();
         if (!fromBreak)
@@ -56,18 +63,7 @@ public class Asteroid : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    private float VelocityBySize()
-    {
-        switch (currentSize)
-        {
-            case AsteroidSize.SMALL: return 3f;
-            case AsteroidSize.NORMAL: return 2f;
-            case AsteroidSize.BIG: return 1f;
-        }
-        return 0f;
-    }
-
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if (ready)
         {
@@ -79,6 +75,20 @@ public class Asteroid : MonoBehaviour
         {
             DestroyAsteroid();
         }
+
+        //transform.Rotate(rotateDirection * (int)currentSize * Time.deltaTime);
+        mRigidbody.AddTorque(rotateDirection / ((int)currentSize * 10));
+    }
+
+    private float VelocityBySize()
+    {
+        switch (currentSize)
+        {
+            case AsteroidSize.SMALL: return 3f;
+            case AsteroidSize.NORMAL: return 2f;
+            case AsteroidSize.BIG: return 1f;
+        }
+        return 0f;
     }
 
     private void ApplySize()
