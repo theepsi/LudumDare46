@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
     private AudioSource frontGasRSsfxSource;
     private AudioSource frontGasAsfxSource;
     private AudioSource frontGasDsfxSource;
+    private AudioSource backGassfxSource;
 
     void Start()
     {
@@ -101,12 +102,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.S) && gasOn)
         {
             gasOn = false;
-            StopFrontGas(frontGas01PS, frontGas1SsfxSource);
-            StopFrontGas(frontGas02PS, frontGas2SsfxSource);
-            StopFrontGas(frontLeftPS, frontGasLSsfxSource);
-            StopFrontGas(frontRightPS, frontGasRSsfxSource);
-            backGas01PS.Stop();
-            backGas02PS.Stop();
+            StopGas(frontGas01PS, frontGas1SsfxSource);
+            StopGas(frontGas02PS, frontGas2SsfxSource);
+            StopGas(frontLeftPS, frontGasLSsfxSource);
+            StopGas(frontRightPS, frontGasRSsfxSource);
+            StopGas(backGas01PS, backGassfxSource, backGas02PS);
         }
 
         if (Input.GetKeyDown(KeyCode.S) && !gasOn)
@@ -116,8 +116,7 @@ public class PlayerController : MonoBehaviour
             frontGas2SsfxSource = StartFrontGas(frontGas02PS);
             frontGasLSsfxSource = StartFrontGas(frontLeftPS);
             frontGasRSsfxSource = StartFrontGas(frontRightPS);
-            backGas01PS.Play();
-            backGas02PS.Play();
+            backGassfxSource = StartBackGas(backGas01PS, backGas02PS);
         }
 
         if (Input.GetKeyDown(KeyCode.A) && !leftOn)
@@ -129,7 +128,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.A) && leftOn)
         {
             leftOn = false;
-            StopFrontGas(frontRightPS, frontGasAsfxSource);
+            StopGas(frontRightPS, frontGasAsfxSource);
         }
 
         if (Input.GetKeyDown(KeyCode.D) && !rightOn)
@@ -141,14 +140,13 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.D) && rightOn)
         {
             rightOn = false;
-            StopFrontGas(frontLeftPS, frontGasDsfxSource);
+            StopGas(frontLeftPS, frontGasDsfxSource);
         }
 
         if (Input.GetKeyDown(KeyCode.W) && !frontOn)
         {
             frontOn = true;
-            backGas01PS.Play();
-            backGas02PS.Play();
+            backGassfxSource = StartBackGas(backGas01PS, backGas02PS);
         }
 
         if (Input.GetKeyUp(KeyCode.W) && frontOn)
@@ -156,6 +154,7 @@ public class PlayerController : MonoBehaviour
             frontOn = false;
             backGas01PS.Stop();
             backGas02PS.Stop();
+            StopGas(backGas01PS, backGassfxSource, backGas01PS);
         }
     }
 
@@ -234,6 +233,7 @@ public class PlayerController : MonoBehaviour
 
         if (currentHull <= 0)
         {
+            StopAllGases();
             currentHull = 0;
             EventManager.TriggerEvent(Statics.Events.gameOver);
         }
@@ -251,6 +251,7 @@ public class PlayerController : MonoBehaviour
 
             if (currentOxygen <= 0)
             {
+                StopAllGases();
                 currentOxygen = 0;
                 EventManager.TriggerEvent(Statics.Events.gameOver);
             }
@@ -321,14 +322,31 @@ public class PlayerController : MonoBehaviour
     private AudioSource StartFrontGas(VisualEffect gas)
     {
         gas.Play();
-        //EffectsHelper.SFX("_VaporDavant_inici");
         return EffectsHelper.SFXLoop("_VaporDavantLoop_mig");
     }
 
-    private void StopFrontGas(VisualEffect gas, AudioSource sfxSource)
+    private AudioSource StartBackGas(VisualEffect gas1, VisualEffect gas2)
+    {
+        gas1.Play();
+        gas2.Play();
+        return EffectsHelper.SFXLoop("_MotorEspacialLoop");
+    }
+
+    private void StopGas(VisualEffect gas, AudioSource sfxSource, VisualEffect gas2 = null)
     {
         gas.Stop();
+        if (gas2 != null) gas2.Stop();
         sfxSource.Stop();
-        //EffectsHelper.SFX("_VaporDavant_final");
+    }
+
+    private void StopAllGases()
+    {
+        frontGas1SsfxSource?.Stop();
+        frontGas2SsfxSource?.Stop();
+        frontGasLSsfxSource?.Stop();
+        frontGasRSsfxSource?.Stop();
+        frontGasAsfxSource?.Stop();
+        frontGasDsfxSource?.Stop();
+        backGassfxSource?.Stop();
     }
 }
