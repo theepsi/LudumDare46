@@ -60,6 +60,11 @@ public class PlayerController : MonoBehaviour
         ImpulseShip(Input.GetAxis("Vertical"));
     }
 
+    public Vector3 GetVelocityDirection()
+    {
+        return mRigidbody.velocity.normalized;
+    }
+
     private void RotateShip(float direction)
     {
         if (direction != 0)

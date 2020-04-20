@@ -24,7 +24,8 @@ public class Asteroid : MonoBehaviour
     public GameObject breakPartner = null;
 
     public int offsetDirection = 15;
-    public float normalizedExtraScreen = 0.5f;
+
+    private float normalizedExtraScreen;
 
     private void Awake()
     {
@@ -32,11 +33,14 @@ public class Asteroid : MonoBehaviour
         ready = false;
     }
 
-    public void Init(AsteroidSize size, Vector3 target, bool fromBreak)
+    public void Init(AsteroidSize size, Vector3 target, bool fromBreak, float normalizedExtraScreen)
     {
         breakPartner = null;
         currentSize = size;
         mRigidbody.velocity = Vector3.zero;
+
+        this.normalizedExtraScreen = normalizedExtraScreen;
+
         ApplySize();
         if (!fromBreak)
         {
@@ -123,21 +127,21 @@ public class Asteroid : MonoBehaviour
 
             GameObject asteroid1 = ObjectPooler.Instance.GetPooledObject("Asteroid");
             asteroid1.transform.position = transform.position;
-            asteroid1.GetComponent<Asteroid>().Init(newSize, dir1, true);
+            asteroid1.GetComponent<Asteroid>().Init(newSize, dir1, true, normalizedExtraScreen);
 
             GameObject asteroid2 = ObjectPooler.Instance.GetPooledObject("Asteroid");
             asteroid2.transform.position = transform.position;
-            asteroid2.GetComponent<Asteroid>().Init(newSize, dir2, true);
+            asteroid2.GetComponent<Asteroid>().Init(newSize, dir2, true, normalizedExtraScreen);
 
             asteroid1.GetComponent<Asteroid>().breakPartner = asteroid2;
             asteroid2.GetComponent<Asteroid>().breakPartner = asteroid1;
+            EventManager.TriggerEvent(Statics.Events.asteroidBreak);
         }
     }
 
     private bool CheckForDestruction()
     {
-        Vector2 vpPos = Camera.main.WorldToViewportPoint(transform.position);
-        return vpPos.x < -normalizedExtraScreen || vpPos.x > 1 + normalizedExtraScreen || vpPos.y < -normalizedExtraScreen || vpPos.y > 1 + normalizedExtraScreen;
+        return SpawnerHelper.OffScreen(Camera.main.WorldToViewportPoint(transform.position), normalizedExtraScreen);
     }
 
     public void OnTriggerEnter(Collider other)
@@ -162,5 +166,6 @@ public class Asteroid : MonoBehaviour
     {
         ready = false;
         gameObject.SetActive(false);
+        EventManager.TriggerEvent(Statics.Events.asteroidDistroy);
     }
 }

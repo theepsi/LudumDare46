@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 {
     public bool godMode = false;
     public bool onlyRare = false;
+    public bool onlySpawnFrontWhenMoving = false;
 
     public float baseRadius = 10f;
 

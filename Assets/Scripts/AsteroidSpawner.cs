@@ -6,14 +6,19 @@ public class AsteroidSpawner : MonoBehaviour
 {
     public float spawnRate = 2f;
     public int spawnAmount = 2;
-    public float xyOffset = 1;
+    public float normalizedExtraScreen = 0.5f;
 
     private Coroutine spawner;
     private Camera mainCam;
 
+    public int maxAsteroids = 20;
+    private int totalAsteroids = 0;
+
     public void Init(Camera mainCam)
     {
         this.mainCam = mainCam;
+        EventManager.StartListening(Statics.Events.asteroidDistroy, () => totalAsteroids--);
+        EventManager.StartListening(Statics.Events.asteroidBreak, () => totalAsteroids += 2);
     }
 
     public void StartSpawner()
@@ -44,19 +49,18 @@ public class AsteroidSpawner : MonoBehaviour
     {
         for (int i = 0; i < spawnAmount; ++i)
         {
-            GameObject asteroid = ObjectPooler.Instance.GetPooledObject("Asteroid");
-
-            float randomX = Random.Range(-xyOffset, xyOffset + 1);
-            float randomY = Random.Range(-xyOffset, xyOffset + 1);
-
-            while (randomY <= 1 && randomY >= 0 && randomX <= 1 && randomX >= 0)
+            if (totalAsteroids < maxAsteroids)
             {
-                randomY = Random.Range(-xyOffset, xyOffset + 1);
-            }
+                GameObject asteroid = ObjectPooler.Instance.GetPooledObject("Asteroid");
 
-            asteroid.transform.position = mainCam.ViewportToWorldPoint(new Vector3(randomX, randomY, mainCam.transform.position.y));
-            AsteroidSize randomSize = (AsteroidSize)Random.Range(1, System.Enum.GetNames(typeof(AsteroidSize)).Length);
-            asteroid.GetComponent<Asteroid>().Init(randomSize, GameManager.Instance.player.transform.position, false);
+                Vector2 position = SpawnerHelper.SpawnPosition(normalizedExtraScreen);
+
+                asteroid.transform.position = mainCam.ViewportToWorldPoint(new Vector3(position.x, position.y, mainCam.transform.position.y));
+                AsteroidSize randomSize = (AsteroidSize)Random.Range(1, System.Enum.GetNames(typeof(AsteroidSize)).Length);
+                asteroid.GetComponent<Asteroid>().Init(randomSize, GameManager.Instance.player.transform.position, false, normalizedExtraScreen);
+
+                totalAsteroids++;
+            }
         }
     }
 }

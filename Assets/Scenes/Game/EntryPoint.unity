@@ -128,10 +128,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 692950409041206546, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: godMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 692950409041206547, guid: 96eff19578b3142408dc2422752d6f74,
         type: 3}
       propertyPath: m_Name
       value: Managers
+      objectReference: {fileID: 0}
+    - target: {fileID: 692950409041206553, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: maxModules
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 692950409041206557, guid: 96eff19578b3142408dc2422752d6f74,
         type: 3}
@@ -187,6 +197,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 692950409041206558, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: spawnAmount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 692950409041206558, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: maxAsteroids
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5638657629118640712, guid: 96eff19578b3142408dc2422752d6f74,
         type: 3}

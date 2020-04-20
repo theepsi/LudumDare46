@@ -16,5 +16,9 @@ public static class Statics
         public static readonly string moduleHitAsteroid = "moduleHitAsteroid";
 
         public static readonly string playGame = "playGame";
+
+        public static readonly string moduleDistroy = "moduleDistroy";
+        public static readonly string asteroidDistroy = "asteroidDistroy";
+        public static readonly string asteroidBreak = "asteroidBreak";
     }
 }
