@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.VFX;
+using static UnityEngine.ParticleSystem;
 
 public static class EffectsHelper
 {
@@ -19,6 +21,18 @@ public static class EffectsHelper
         particleSystem.transform.position = position;
         particleSystem.gameObject.SetActive(true);
         particleSystem.Play();
+    }
+    public static VisualEffect GasParticles(GameObject parent, string name)
+    {
+        VisualEffect particleSystem = Resources.Load<VisualEffect>("Particles/" + name);
+        VisualEffect ps = Object.Instantiate(particleSystem, parent.transform);
+
+        ps.transform.position = parent.transform.position;
+        ps.transform.rotation = parent.transform.rotation;
+
+        ps.Stop();
+
+        return ps;
     }
 
     public static AudioSource Music(string name) {

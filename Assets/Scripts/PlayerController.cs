@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.VFX;
+using static UnityEngine.ParticleSystem;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
@@ -29,8 +31,32 @@ public class PlayerController : MonoBehaviour
     public GameObject moduleSlot1;
     public GameObject moduleSlot2;
 
+    public GameObject frontGas01;
+    public GameObject frontGas02;
+    public GameObject frontLeft;
+    public GameObject frontRight;
+    public GameObject backGas01;
+    public GameObject backGas02;
+
+    private VisualEffect frontGas01PS;
+    private VisualEffect frontGas02PS;
+    private VisualEffect frontLeftPS;
+    private VisualEffect frontRightPS;
+    private VisualEffect backGas01PS;
+    private VisualEffect backGas02PS;
+
+    private bool gasOn;
+    private bool leftOn;
+    private bool rightOn;
+    private bool frontOn;
+
     void Start()
     {
+        gasOn = false;
+        leftOn = false;
+        rightOn = false;
+        frontOn = false;
+
         mRigidbody = GetComponent<Rigidbody>();
         currentHull = maxHull;
         currentOxygen = maxOxygen;
@@ -39,7 +65,20 @@ public class PlayerController : MonoBehaviour
 
         EventManager.StartListening(Statics.Events.moduleHitPlayer, (x) => OnModuleHitPlayer(x));
         EventManager.StartListening(Statics.Events.moduleHitAsteroid, (x) => OnModuleHitAsteroid(x));
+
+        InstantiateGases();
     }
+
+    private void InstantiateGases()
+    {
+        frontGas01PS = EffectsHelper.GasParticles(frontGas01, "Gas");
+        frontGas02PS = EffectsHelper.GasParticles(frontGas02, "Gas");
+        frontLeftPS = EffectsHelper.GasParticles(frontLeft, "Gas");
+        frontRightPS = EffectsHelper.GasParticles(frontRight, "Gas");
+        backGas01PS = EffectsHelper.GasParticles(backGas01, "BigSmoke");
+        backGas02PS = EffectsHelper.GasParticles(backGas02, "BigSmoke");
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q) && moduleSlot1.GetComponentInChildren<Module>() != null)
@@ -50,6 +89,66 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && moduleSlot2.GetComponentInChildren<Module>() != null)
         {
             moduleSlot2.GetComponentInChildren<Module>().OnDettached();
+        }
+
+        if (Input.GetKeyUp(KeyCode.S) && gasOn)
+        {
+            gasOn = false;
+            frontGas01PS.Stop();
+            frontGas02PS.Stop();
+            frontLeftPS.Stop();
+            frontRightPS.Stop();
+            backGas01PS.Stop();
+            backGas02PS.Stop();
+        }
+
+        if (Input.GetKeyDown(KeyCode.S) && !gasOn)
+        {
+            gasOn = true;
+            frontGas01PS.Play();
+            frontGas02PS.Play();
+            frontLeftPS.Play();
+            frontRightPS.Play();
+            backGas01PS.Play();
+            backGas02PS.Play();
+        }
+
+        if (Input.GetKeyDown(KeyCode.A) && !leftOn)
+        {
+            leftOn = true;
+            frontRightPS.Play();
+        }
+
+        if (Input.GetKeyUp(KeyCode.A) && leftOn)
+        {
+            leftOn = false;
+            frontRightPS.Stop();
+        }
+
+        if (Input.GetKeyDown(KeyCode.D) && !rightOn)
+        {
+            rightOn = true;
+            frontLeftPS.Play();
+        }
+
+        if (Input.GetKeyUp(KeyCode.D) && rightOn)
+        {
+            rightOn = false;
+            frontLeftPS.Stop();
+        }
+
+        if (Input.GetKeyDown(KeyCode.W) && !frontOn)
+        {
+            frontOn = true;
+            backGas01PS.Play();
+            backGas02PS.Play();
+        }
+
+        if (Input.GetKeyUp(KeyCode.W) && frontOn)
+        {
+            frontOn = false;
+            backGas01PS.Stop();
+            backGas02PS.Stop();
         }
     }
 
@@ -78,7 +177,7 @@ public class PlayerController : MonoBehaviour
     {
         if (acceleration == 1)
         {
-            mRigidbody.velocity += transform.forward * impulseSpeed * Time.deltaTime * (acceleration * 2)   ;
+            mRigidbody.velocity += transform.forward * impulseSpeed * Time.deltaTime * (acceleration * 2);
             float velocityX = 0;
             if (mRigidbody.velocity.x < 0)
             {

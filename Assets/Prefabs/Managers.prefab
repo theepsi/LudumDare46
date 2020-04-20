@@ -945,7 +945,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d799a9df2c437d428cf12027a8480fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  godMode: 0
+  godMode: 1
   onlyRare: 0
   onlySpawnFrontWhenMoving: 0
   baseRadius: 250
@@ -1052,6 +1052,22 @@ MonoBehaviour:
     Pool: []
     PooledAmount: 1
   - objectToPool: {fileID: 8837410683815248172, guid: 33557c233b46f6847917afc19de72eff,
+      type: 3}
+    Pool: []
+    PooledAmount: 1
+  - objectToPool: {fileID: 8837410683815248172, guid: ffdd7f34d67b1fe408761f4b8b0b47dc,
+      type: 3}
+    Pool: []
+    PooledAmount: 1
+  - objectToPool: {fileID: 8837410683815248172, guid: 547ed411073a689428bc8e082f488588,
+      type: 3}
+    Pool: []
+    PooledAmount: 1
+  - objectToPool: {fileID: 8837410683815248172, guid: ea0448ce60ceccc438da8ba7dd5af62a,
+      type: 3}
+    Pool: []
+    PooledAmount: 1
+  - objectToPool: {fileID: 8837410683815248172, guid: ff84134adf9044a4d9723ce4c9d31b9f,
       type: 3}
     Pool: []
     PooledAmount: 1
