@@ -140,6 +140,11 @@ public class Module : MonoBehaviour
         }
         else if (other.CompareTag("Asteroid") && attached)
         {
+            ParticleSystem moduleCrash = ObjectPooler.Instance.GetPooledObject("ModuleCrash").GetComponent<ParticleSystem>();
+            moduleCrash.transform.position = transform.position;
+            moduleCrash.gameObject.SetActive(true);
+            moduleCrash.Play();
+
             other.GetComponent<Asteroid>().DestroyAsteroid();
             EventManager.TriggerEvent(Statics.Events.moduleHitAsteroid, this);
         }
