@@ -15,7 +15,7 @@ public enum AsteroidSize
 public class Asteroid : MonoBehaviour
 {
     public AsteroidSize currentSize = AsteroidSize.BIG;
-    
+
     private Rigidbody mRigidbody;
 
     private bool ready = false;
@@ -24,6 +24,7 @@ public class Asteroid : MonoBehaviour
     public GameObject breakPartner = null;
 
     public int offsetDirection = 15;
+    public float normalizedExtraScreen = 0.5f;
 
     private void Awake()
     {
@@ -53,7 +54,7 @@ public class Asteroid : MonoBehaviour
 
     private float VelocityBySize()
     {
-        switch(currentSize)
+        switch (currentSize)
         {
             case AsteroidSize.SMALL: return 3f;
             case AsteroidSize.NORMAL: return 2f;
@@ -69,7 +70,7 @@ public class Asteroid : MonoBehaviour
             mRigidbody.AddForce(targetDir.normalized * VelocityBySize(), ForceMode.Impulse);
             ready = false;
         }
-        
+
         if (CheckForDestruction())
         {
             DestroyAsteroid();
@@ -93,7 +94,7 @@ public class Asteroid : MonoBehaviour
 
         }
     }
-    
+
     private void Break()
     {
         DestroyAsteroid();
@@ -136,7 +137,7 @@ public class Asteroid : MonoBehaviour
     private bool CheckForDestruction()
     {
         Vector2 vpPos = Camera.main.WorldToViewportPoint(transform.position);
-        return vpPos.x < -1 || vpPos.x > 2 || vpPos.y < -1 || vpPos.y > 2;
+        return vpPos.x < -normalizedExtraScreen || vpPos.x > 1 + normalizedExtraScreen || vpPos.y < -normalizedExtraScreen || vpPos.y > 1 + normalizedExtraScreen;
     }
 
     public void OnTriggerEnter(Collider other)

@@ -8,7 +8,7 @@ public class ModuleManager : MonoBehaviour
 
     public float spawnRate = 2f;
     public int spawnAmount = 2;
-    public float xyOffset = 1;
+    public float normalizedExtraScreen = 0.5f;
 
     private Coroutine spawner;
     private Camera mainCam;
@@ -48,12 +48,12 @@ public class ModuleManager : MonoBehaviour
         {
             GameObject module = ObjectPooler.Instance.GetPooledObject("Module");
 
-            float randomX = Random.Range(-xyOffset, xyOffset + 1);
-            float randomY = Random.Range(-xyOffset, xyOffset + 1);
+            float randomX = Random.Range(-normalizedExtraScreen, normalizedExtraScreen + 1);
+            float randomY = Random.Range(-normalizedExtraScreen, normalizedExtraScreen + 1);
 
             while (randomY <= 1 && randomY >= 0 && randomX <= 1 && randomX >= 0)
             {
-                randomY = Random.Range(-xyOffset, xyOffset + 1);
+                randomY = Random.Range(-normalizedExtraScreen, normalizedExtraScreen + 1);
             }
 
             module.transform.position = mainCam.ViewportToWorldPoint(new Vector3(randomX, randomY, mainCam.transform.position.y));
