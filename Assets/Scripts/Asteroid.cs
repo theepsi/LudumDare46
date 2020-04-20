@@ -15,7 +15,6 @@ public enum AsteroidSize
 public class Asteroid : MonoBehaviour
 {
     public AsteroidSize currentSize = AsteroidSize.BIG;
-    public Vector2 RandomForce;
     
     private Rigidbody mRigidbody;
 
@@ -23,6 +22,8 @@ public class Asteroid : MonoBehaviour
     private Vector3 targetDir;
 
     public GameObject breakPartner = null;
+
+    public int offsetDirection = 15;
 
     private void Awake()
     {
@@ -38,7 +39,7 @@ public class Asteroid : MonoBehaviour
         ApplySize();
         if (!fromBreak)
         {
-            Vector3 targetOffseted = target;
+            Vector3 targetOffseted = target + new Vector3(Random.Range(-offsetDirection, offsetDirection), 0, Random.Range(-offsetDirection, offsetDirection));
             targetDir = targetOffseted - transform.position;
         }
         else
@@ -50,11 +51,22 @@ public class Asteroid : MonoBehaviour
         gameObject.SetActive(true);
     }
 
+    private float VelocityBySize()
+    {
+        switch(currentSize)
+        {
+            case AsteroidSize.SMALL: return 3f;
+            case AsteroidSize.NORMAL: return 2f;
+            case AsteroidSize.BIG: return 1f;
+        }
+        return 0f;
+    }
+
     private void FixedUpdate()
     {
         if (ready)
         {
-            mRigidbody.AddForce(targetDir.normalized * Random.Range(RandomForce[0], RandomForce[1]), ForceMode.Impulse);
+            mRigidbody.AddForce(targetDir.normalized * VelocityBySize(), ForceMode.Impulse);
             ready = false;
         }
         
