@@ -128,58 +128,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 692950409041206546, guid: 96eff19578b3142408dc2422752d6f74,
-        type: 3}
-      propertyPath: godMode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 692950409041206547, guid: 96eff19578b3142408dc2422752d6f74,
         type: 3}
       propertyPath: m_Name
       value: Managers
-      objectReference: {fileID: 0}
-    - target: {fileID: 692950409041206553, guid: 96eff19578b3142408dc2422752d6f74,
-        type: 3}
-      propertyPath: maxModules
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 692950409041206556, guid: 96eff19578b3142408dc2422752d6f74,
-        type: 3}
-      propertyPath: PooledObjects.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 692950409041206556, guid: 96eff19578b3142408dc2422752d6f74,
-        type: 3}
-      propertyPath: PooledObjects.Array.data[3].objectToPool
-      value: 
-      objectReference: {fileID: 8837410683815248172, guid: f5ee98b3d24583643b2f18188be01d5e,
-        type: 3}
-    - target: {fileID: 692950409041206556, guid: 96eff19578b3142408dc2422752d6f74,
-        type: 3}
-      propertyPath: PooledObjects.Array.data[3].PooledAmount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 692950409041206556, guid: 96eff19578b3142408dc2422752d6f74,
-        type: 3}
-      propertyPath: PooledObjects.Array.data[4].objectToPool
-      value: 
-      objectReference: {fileID: 8837410683815248172, guid: 06513c56d91d1664d91f2389cba702a7,
-        type: 3}
-    - target: {fileID: 692950409041206556, guid: 96eff19578b3142408dc2422752d6f74,
-        type: 3}
-      propertyPath: PooledObjects.Array.data[4].PooledAmount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 692950409041206556, guid: 96eff19578b3142408dc2422752d6f74,
-        type: 3}
-      propertyPath: PooledObjects.Array.data[5].objectToPool
-      value: 
-      objectReference: {fileID: 8837410683815248172, guid: 33557c233b46f6847917afc19de72eff,
-        type: 3}
-    - target: {fileID: 692950409041206556, guid: 96eff19578b3142408dc2422752d6f74,
-        type: 3}
-      propertyPath: PooledObjects.Array.data[5].PooledAmount
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 692950409041206557, guid: 96eff19578b3142408dc2422752d6f74,
         type: 3}
@@ -235,51 +187,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 692950409041206558, guid: 96eff19578b3142408dc2422752d6f74,
-        type: 3}
-      propertyPath: spawnAmount
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 692950409041206558, guid: 96eff19578b3142408dc2422752d6f74,
-        type: 3}
-      propertyPath: maxAsteroids
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 4857740113930852331, guid: 96eff19578b3142408dc2422752d6f74,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5638657629118640712, guid: 96eff19578b3142408dc2422752d6f74,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5638657629118640712, guid: 96eff19578b3142408dc2422752d6f74,
-        type: 3}
-      propertyPath: m_textInfo.spaceCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5638657629118640712, guid: 96eff19578b3142408dc2422752d6f74,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5638657629118640712, guid: 96eff19578b3142408dc2422752d6f74,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5638657629118640712, guid: 96eff19578b3142408dc2422752d6f74,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6840409224578317966, guid: 96eff19578b3142408dc2422752d6f74,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 1002
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96eff19578b3142408dc2422752d6f74, type: 3}
