@@ -121,10 +121,8 @@ public class PlayerController : MonoBehaviour
     {
         if (GameManager.Instance.godMode) return;
 
-        ParticleSystem shipCrash = ObjectPooler.Instance.GetPooledObject("ShipCrash").GetComponent<ParticleSystem>();
-        shipCrash.transform.position = transform.position;
-        shipCrash.gameObject.SetActive(true);
-        shipCrash.Play();
+        EffectsHelper.SFX("_AsteroidShipCrash");
+        EffectsHelper.Particles("ShipCrash", transform.position);
 
         currentHull -= damageAmount;
 

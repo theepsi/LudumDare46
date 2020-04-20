@@ -175,10 +175,7 @@ public class Asteroid : MonoBehaviour
 
     public void DestroyAsteroid()
     {
-        ParticleSystem asteroidCrash = ObjectPooler.Instance.GetPooledObject("AsteroidCrash").GetComponent<ParticleSystem>();
-        asteroidCrash.transform.position = transform.position;
-        asteroidCrash.gameObject.SetActive(true);
-        asteroidCrash.Play();
+        EffectsHelper.Particles("AsteroidCrash", transform.position);
 
         ready = false;
         gameObject.SetActive(false);
