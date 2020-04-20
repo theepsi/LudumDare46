@@ -162,6 +162,14 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void OnGameOver()
     {
+        EffectsHelper.SFX("_GameOverExplosion");
+
+        float explosionOffset = 1f;
+        EffectsHelper.Particles("ShipExplosion01", player.transform.position);
+        EffectsHelper.Particles("ShipExplosion02", player.transform.position + new Vector3(UnityEngine.Random.Range(-explosionOffset, explosionOffset), 0, UnityEngine.Random.Range(-explosionOffset, explosionOffset)));
+        EffectsHelper.Particles("ShipExplosion03", player.transform.position + new Vector3(UnityEngine.Random.Range(-explosionOffset, explosionOffset), 0, UnityEngine.Random.Range(-explosionOffset, explosionOffset)));
+        EffectsHelper.Particles("ShipExplosion04", player.transform.position + new Vector3(UnityEngine.Random.Range(-explosionOffset, explosionOffset), 0, UnityEngine.Random.Range(-explosionOffset, explosionOffset)));
+
         StartCoroutine(ShowEndScreen("SHIP DESTROYED!", lostImage));
     }
 

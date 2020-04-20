@@ -16,6 +16,7 @@ public class AsteroidSpawner : MonoBehaviour
 
     public void Init(Camera mainCam)
     {
+        totalAsteroids = 0;
         this.mainCam = mainCam;
         EventManager.StartListening(Statics.Events.asteroidDistroy, () => totalAsteroids--);
         EventManager.StartListening(Statics.Events.asteroidBreak, () => totalAsteroids += 2);

@@ -133,6 +133,55 @@ PrefabInstance:
       propertyPath: m_Name
       value: Managers
       objectReference: {fileID: 0}
+    - target: {fileID: 692950409041206556, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: PooledObjects.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 692950409041206556, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: PooledObjects.Array.data[6].objectToPool
+      value: 
+      objectReference: {fileID: 8837410683815248172, guid: ffdd7f34d67b1fe408761f4b8b0b47dc,
+        type: 3}
+    - target: {fileID: 692950409041206556, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: PooledObjects.Array.data[6].PooledAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 692950409041206556, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: PooledObjects.Array.data[7].objectToPool
+      value: 
+      objectReference: {fileID: 8837410683815248172, guid: 547ed411073a689428bc8e082f488588,
+        type: 3}
+    - target: {fileID: 692950409041206556, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: PooledObjects.Array.data[7].PooledAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 692950409041206556, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: PooledObjects.Array.data[8].objectToPool
+      value: 
+      objectReference: {fileID: 8837410683815248172, guid: ea0448ce60ceccc438da8ba7dd5af62a,
+        type: 3}
+    - target: {fileID: 692950409041206556, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: PooledObjects.Array.data[8].PooledAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 692950409041206556, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: PooledObjects.Array.data[9].objectToPool
+      value: 
+      objectReference: {fileID: 8837410683815248172, guid: ff84134adf9044a4d9723ce4c9d31b9f,
+        type: 3}
+    - target: {fileID: 692950409041206556, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: PooledObjects.Array.data[9].PooledAmount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 692950409041206557, guid: 96eff19578b3142408dc2422752d6f74,
         type: 3}
       propertyPath: m_LocalPosition.x
