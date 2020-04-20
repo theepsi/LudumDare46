@@ -6,10 +6,8 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    private void AnimateOnEnter(BaseEventData eventData)
-    {
-        
-    }
+    public GameObject creditsPanel;
+    public GameObject howToPlayPanel;
 
     public void Play()
     {
@@ -18,7 +16,14 @@ public class MainMenu : MonoBehaviour
 
     public void Credits()
     {
-        //Open credit page
+        howToPlayPanel.SetActive(false);
+        creditsPanel.SetActive(!creditsPanel.activeSelf);
+    }
+
+    public void HowToPlay()
+    {
+        creditsPanel.SetActive(false);
+        howToPlayPanel.SetActive(!howToPlayPanel.activeSelf);
     }
 
     public void Quit()
