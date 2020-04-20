@@ -93,6 +93,16 @@ public class GameManager : MonoBehaviour
     {
         videoPlayer.gameObject.SetActive(false);
 
+        PrepareAndStartGame();
+    }
+
+    public void PrepareAndStartGame()
+    {
+        StopAllCoroutines();
+
+        mainUI.SetActive(false);
+        resumePanel.SetActive(false);
+
         Action onGameSceneLoaded = () =>
         {
             blackScreen.SetActive(false);
@@ -130,7 +140,7 @@ public class GameManager : MonoBehaviour
             Fade(false);
         };
 
-        sceneManager.LoadGame(onGameSceneLoaded); ;
+        sceneManager.LoadGame(onGameSceneLoaded);
     }
 
     public void SkipIntro()

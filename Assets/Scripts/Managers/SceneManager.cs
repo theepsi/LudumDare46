@@ -43,10 +43,13 @@ public class SceneManager : MonoBehaviour
 
     public void LoadGame(Action callback = null)
     {
-        menuAudioSource?.Stop();
-        menuAudioSource?.gameObject.SetActive(false);
+        if (menuAudioSource != null)
+        {
+            menuAudioSource.Stop();
+            menuAudioSource.gameObject.SetActive(false);
 
-        menuAudioSource = null;
+            menuAudioSource = null;
+        }
 
         LoadScene("Game", () =>
         {
