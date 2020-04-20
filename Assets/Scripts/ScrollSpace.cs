@@ -6,11 +6,14 @@ public class ScrollSpace : MonoBehaviour
 {
     Material meshRendererMaterial;
 
+    public bool useYAxis = false;
+
     public float parallax = 2f;
 
     private void Start()
     {
         meshRendererMaterial = GetComponent<MeshRenderer>().material;
+
     }
 
     void Update()
@@ -18,7 +21,7 @@ public class ScrollSpace : MonoBehaviour
         Vector2 offset = meshRendererMaterial.mainTextureOffset;
 
         offset.x = transform.position.x / transform.localScale.x / parallax;
-        offset.y = transform.position.z / transform.localScale.y / parallax;
+        offset.y = (useYAxis ? transform.position.y : transform.position.z) / transform.localScale.y / parallax;
 
         meshRendererMaterial.mainTextureOffset = offset;
     }
