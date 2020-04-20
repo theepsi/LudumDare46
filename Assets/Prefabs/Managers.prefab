@@ -999,6 +999,22 @@ MonoBehaviour:
       type: 3}
     Pool: []
     PooledAmount: 1
+  - objectToPool: {fileID: 8837410683815248172, guid: ffdd7f34d67b1fe408761f4b8b0b47dc,
+      type: 3}
+    Pool: []
+    PooledAmount: 1
+  - objectToPool: {fileID: 8837410683815248172, guid: 547ed411073a689428bc8e082f488588,
+      type: 3}
+    Pool: []
+    PooledAmount: 1
+  - objectToPool: {fileID: 8837410683815248172, guid: ea0448ce60ceccc438da8ba7dd5af62a,
+      type: 3}
+    Pool: []
+    PooledAmount: 1
+  - objectToPool: {fileID: 8837410683815248172, guid: ff84134adf9044a4d9723ce4c9d31b9f,
+      type: 3}
+    Pool: []
+    PooledAmount: 1
   poolParent: {fileID: 550113593748488606}
 --- !u!114 &1122882104557823662
 MonoBehaviour:
