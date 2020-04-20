@@ -902,7 +902,7 @@ MonoBehaviour:
   resumePanelText: {fileID: 4322836113350814222}
   resumePanelImage: {fileID: 2362163775718431108}
   winImage: {fileID: 21300000, guid: 0f4a654d308e59746b9e2f7b793e50f9, type: 3}
-  lostImage: {fileID: 0}
+  lostImage: {fileID: 21300000, guid: b86e339a9fd1632458f7dcdeadd83f7c, type: 3}
   playerPrefab: {fileID: 1068350036378775284, guid: 01f2600b2a977c741b3ea19a6ea2e1c8,
     type: 3}
   basePrefab: {fileID: 3057947248434142818, guid: d9d90ddc4f99cd84fb188ab4095bc90b,

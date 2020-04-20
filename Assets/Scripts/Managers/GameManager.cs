@@ -154,7 +154,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void OnEndGame()
     {
-        StartCoroutine(ShowEndScreen("YOU SURVIVED!", winImage));
+        StartCoroutine(ShowEndScreen("SHIP SAVED!", winImage));
     }
 
     /// <summary>
