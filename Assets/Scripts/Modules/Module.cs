@@ -83,23 +83,26 @@ public class Module : MonoBehaviour
 
     public void OnAttached(PlayerController player, GameObject slot)
     {
+        float duration = EffectsHelper.SFX("_AttachModule");
+
         transform.SetParent(slot.transform, false);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
         attached = true;
 
-        //Play clip
         switch (data.moduleAction)
         {
             case ModuleAction.NONE:
                 break;
             case ModuleAction.OXYGEN:
                 Debug.Log("Module OXYGEN Attached");
+                StartCoroutine(StartSFXDelayed("_OxygenModule", duration/2));
                 oxygenModuleAmount = 10f;
                 oxygenModule = StartCoroutine(OxygenDeployment(player));
                 break;
             case ModuleAction.ENERGY:
                 Debug.Log("Module ENERGY Attached");
+                StartCoroutine(StartSFXDelayed("_EnergyModule", duration / 2));
                 if (energyModule == null) energyModule = StartCoroutine(EnergyRadar(player));
                 break;
         }
@@ -107,9 +110,9 @@ public class Module : MonoBehaviour
 
     public void OnDettached()
     {
+        float duration = EffectsHelper.SFX("_DettachModule");
         transform.SetParent(null);
 
-        //Play clip?
         switch (data.moduleAction)
         {
             case ModuleAction.NONE:
@@ -140,6 +143,9 @@ public class Module : MonoBehaviour
         }
         else if (other.CompareTag("Asteroid") && attached)
         {
+            EffectsHelper.SFX("_AsteroidModuleCrash");
+            EffectsHelper.Particles("ModuleCrash", transform.position);
+
             other.GetComponent<Asteroid>().DestroyAsteroid();
             EventManager.TriggerEvent(Statics.Events.moduleHitAsteroid, this);
         }
@@ -152,6 +158,13 @@ public class Module : MonoBehaviour
     private bool CheckForDestruction()
     {
         return SpawnerHelper.OffScreen(Camera.main.WorldToViewportPoint(transform.position), normalizedExtraScreen);
+    }
+
+    private IEnumerator StartSFXDelayed(string name, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+
+        EffectsHelper.SFX(name);
     }
 
     #region OXYGEN

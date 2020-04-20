@@ -29,13 +29,7 @@ public class SceneManager : MonoBehaviour
     {
         LoadScene("MainMenu", () =>
         {
-            menuAudioSource = ObjectPooler.Instance.GetPooledObject("AudioSource").GetComponent<AudioSource>();
-
-            menuAudioSource.gameObject.SetActive(true);
-
-            menuAudioSource.clip = Resources.Load<AudioClip>("Music/MenuLoop");
-            menuAudioSource.loop = true;
-            menuAudioSource.Play();
+            menuAudioSource = EffectsHelper.Music("MenuLoop");
 
             callback?.Invoke();
         });
@@ -53,13 +47,7 @@ public class SceneManager : MonoBehaviour
 
         LoadScene("Game", () =>
         {
-            gameAudioSource = ObjectPooler.Instance.GetPooledObject("AudioSource").GetComponent<AudioSource>();
-
-            gameAudioSource.gameObject.SetActive(true);
-
-            gameAudioSource.clip = Resources.Load<AudioClip>("Music/GameMainLoop");
-            gameAudioSource.loop = true;
-            gameAudioSource.Play();
+            gameAudioSource = EffectsHelper.Music("GameMainLoop");
 
             callback?.Invoke();
         });

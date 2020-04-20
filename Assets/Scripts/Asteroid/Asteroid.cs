@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public enum AsteroidSize
@@ -174,6 +175,8 @@ public class Asteroid : MonoBehaviour
 
     public void DestroyAsteroid()
     {
+        EffectsHelper.Particles("AsteroidCrash", transform.position);
+
         ready = false;
         gameObject.SetActive(false);
         EventManager.TriggerEvent(Statics.Events.asteroidDistroy);

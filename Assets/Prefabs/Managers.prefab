@@ -981,9 +981,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnRate: 1
-  spawnAmount: 2
+  spawnAmount: 4
   normalizedExtraScreen: 0.5
-  maxAsteroids: 20
+  maxAsteroids: 15
 --- !u!114 &692950409041206553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1003,7 +1003,7 @@ MonoBehaviour:
   spawnRate: 1
   spawnAmount: 3
   normalizedExtraScreen: 0.5
-  maxModules: 20
+  maxModules: 25
 --- !u!114 &692950409041206559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1043,6 +1043,18 @@ MonoBehaviour:
       type: 3}
     Pool: []
     PooledAmount: 10
+  - objectToPool: {fileID: 8837410683815248172, guid: f5ee98b3d24583643b2f18188be01d5e,
+      type: 3}
+    Pool: []
+    PooledAmount: 2
+  - objectToPool: {fileID: 8837410683815248172, guid: 06513c56d91d1664d91f2389cba702a7,
+      type: 3}
+    Pool: []
+    PooledAmount: 1
+  - objectToPool: {fileID: 8837410683815248172, guid: 33557c233b46f6847917afc19de72eff,
+      type: 3}
+    Pool: []
+    PooledAmount: 1
   poolParent: {fileID: 550113593748488606}
 --- !u!114 &1122882104557823662
 MonoBehaviour:
@@ -2639,13 +2651,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 5638657629118640712}
-    characterCount: 4
+    characterCount: 0
     spriteCount: 0
     spaceCount: 0
-    wordCount: 1
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0

@@ -121,6 +121,9 @@ public class PlayerController : MonoBehaviour
     {
         if (GameManager.Instance.godMode) return;
 
+        EffectsHelper.SFX("_AsteroidShipCrash");
+        EffectsHelper.Particles("ShipCrash", transform.position);
+
         currentHull -= damageAmount;
 
         if (currentHull <= 0)
