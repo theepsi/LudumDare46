@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AutoDestroy : MonoBehaviour
+public class AutoDeactivate : MonoBehaviour
 {
     ParticleSystem ps = null;
 

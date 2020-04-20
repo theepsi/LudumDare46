@@ -146,7 +146,7 @@ PrefabInstance:
     - target: {fileID: 692950409041206556, guid: 96eff19578b3142408dc2422752d6f74,
         type: 3}
       propertyPath: PooledObjects.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 692950409041206556, guid: 96eff19578b3142408dc2422752d6f74,
         type: 3}
@@ -158,6 +158,17 @@ PrefabInstance:
         type: 3}
       propertyPath: PooledObjects.Array.data[3].PooledAmount
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 692950409041206556, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: PooledObjects.Array.data[4].objectToPool
+      value: 
+      objectReference: {fileID: 8837410683815248172, guid: 06513c56d91d1664d91f2389cba702a7,
+        type: 3}
+    - target: {fileID: 692950409041206556, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: PooledObjects.Array.data[4].PooledAmount
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 692950409041206557, guid: 96eff19578b3142408dc2422752d6f74,
         type: 3}
