@@ -47,7 +47,7 @@ public class SceneManager : MonoBehaviour
 
         LoadScene("Game", () =>
         {
-            gameAudioSource = EffectsHelper.Music("GameMainLoop");
+            //gameAudioSource = EffectsHelper.Music("GameMainLoop");
 
             callback?.Invoke();
         });

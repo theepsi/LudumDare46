@@ -50,6 +50,13 @@ public class PlayerController : MonoBehaviour
     private bool rightOn;
     private bool frontOn;
 
+    private AudioSource frontGas1SsfxSource;
+    private AudioSource frontGas2SsfxSource;
+    private AudioSource frontGasLSsfxSource;
+    private AudioSource frontGasRSsfxSource;
+    private AudioSource frontGasAsfxSource;
+    private AudioSource frontGasDsfxSource;
+
     void Start()
     {
         gasOn = false;
@@ -94,10 +101,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.S) && gasOn)
         {
             gasOn = false;
-            frontGas01PS.Stop();
-            frontGas02PS.Stop();
-            frontLeftPS.Stop();
-            frontRightPS.Stop();
+            StopFrontGas(frontGas01PS, frontGas1SsfxSource);
+            StopFrontGas(frontGas02PS, frontGas2SsfxSource);
+            StopFrontGas(frontLeftPS, frontGasLSsfxSource);
+            StopFrontGas(frontRightPS, frontGasRSsfxSource);
             backGas01PS.Stop();
             backGas02PS.Stop();
         }
@@ -105,10 +112,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S) && !gasOn)
         {
             gasOn = true;
-            frontGas01PS.Play();
-            frontGas02PS.Play();
-            frontLeftPS.Play();
-            frontRightPS.Play();
+            frontGas1SsfxSource = StartFrontGas(frontGas01PS);
+            frontGas2SsfxSource = StartFrontGas(frontGas02PS);
+            frontGasLSsfxSource = StartFrontGas(frontLeftPS);
+            frontGasRSsfxSource = StartFrontGas(frontRightPS);
             backGas01PS.Play();
             backGas02PS.Play();
         }
@@ -116,25 +123,25 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A) && !leftOn)
         {
             leftOn = true;
-            frontRightPS.Play();
+            frontGasAsfxSource = StartFrontGas(frontRightPS);
         }
 
         if (Input.GetKeyUp(KeyCode.A) && leftOn)
         {
             leftOn = false;
-            frontRightPS.Stop();
+            StopFrontGas(frontRightPS, frontGasAsfxSource);
         }
 
         if (Input.GetKeyDown(KeyCode.D) && !rightOn)
         {
             rightOn = true;
-            frontLeftPS.Play();
+            frontGasDsfxSource = StartFrontGas(frontLeftPS);
         }
 
         if (Input.GetKeyUp(KeyCode.D) && rightOn)
         {
             rightOn = false;
-            frontLeftPS.Stop();
+            StopFrontGas(frontLeftPS, frontGasDsfxSource);
         }
 
         if (Input.GetKeyDown(KeyCode.W) && !frontOn)
@@ -309,5 +316,19 @@ public class PlayerController : MonoBehaviour
         {
             EventManager.TriggerEvent(Statics.Events.baseFound);
         }
+    }
+
+    private AudioSource StartFrontGas(VisualEffect gas)
+    {
+        gas.Play();
+        //EffectsHelper.SFX("_VaporDavant_inici");
+        return EffectsHelper.SFXLoop("_VaporDavantLoop_mig");
+    }
+
+    private void StopFrontGas(VisualEffect gas, AudioSource sfxSource)
+    {
+        gas.Stop();
+        sfxSource.Stop();
+        //EffectsHelper.SFX("_VaporDavant_final");
     }
 }

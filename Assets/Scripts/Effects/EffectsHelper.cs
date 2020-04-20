@@ -3,18 +3,29 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.VFX;
-using static UnityEngine.ParticleSystem;
 
 public static class EffectsHelper
 {
     public static float SFX(string name)
     {
         AudioSource sfx = ObjectPooler.Instance.GetPooledObject("AudioSource").GetComponent<AudioSource>();
-        sfx.clip = Resources.Load<AudioClip>("SFX/"+ name);
+        sfx.clip = Resources.Load<AudioClip>("SFX/" + name);
+        sfx.loop = false;
         sfx.gameObject.SetActive(true);
         sfx.Play();
         return sfx.clip.length;
     }
+
+    public static AudioSource SFXLoop(string name)
+    {
+        AudioSource sfx = ObjectPooler.Instance.GetPooledObject("AudioSource").GetComponent<AudioSource>();
+        sfx.clip = Resources.Load<AudioClip>("SFX/" + name);
+        sfx.loop = true;
+        sfx.gameObject.SetActive(true);
+        sfx.Play();
+        return sfx;
+    }
+
     public static void Particles(string name, Vector3 position)
     {
         ParticleSystem particleSystem = ObjectPooler.Instance.GetPooledObject(name).GetComponent<ParticleSystem>();
