@@ -143,6 +143,22 @@ PrefabInstance:
       propertyPath: maxModules
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 692950409041206556, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: PooledObjects.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 692950409041206556, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: PooledObjects.Array.data[3].objectToPool
+      value: 
+      objectReference: {fileID: 8837410683815248172, guid: f5ee98b3d24583643b2f18188be01d5e,
+        type: 3}
+    - target: {fileID: 692950409041206556, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: PooledObjects.Array.data[3].PooledAmount
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 692950409041206557, guid: 96eff19578b3142408dc2422752d6f74,
         type: 3}
       propertyPath: m_LocalPosition.x
