@@ -138,6 +138,10 @@ public class Module : MonoBehaviour
             other.GetComponent<Asteroid>().DestroyAsteroid();
             EventManager.TriggerEvent(Statics.Events.moduleHitAsteroid, this);
         }
+        else if (other.CompareTag("Base"))
+        {
+            DestroyModule();
+        }
     }
 
     private bool CheckForDestruction()
