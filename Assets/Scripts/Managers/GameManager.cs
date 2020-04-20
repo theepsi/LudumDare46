@@ -143,9 +143,9 @@ public class GameManager : MonoBehaviour
 
         firstRandomBasePosition += player.transform.position;
 
-        baseList.Add(Instantiate(basePrefab, firstRandomBasePosition, Quaternion.identity));
-        baseList.Add(Instantiate(basePrefab, secondRandomBasePosition, Quaternion.identity));
-        baseList.Add(Instantiate(basePrefab, thirdRandomBasePosition, Quaternion.identity));
+        baseList.Add(Instantiate(basePrefab, firstRandomBasePosition, Quaternion.Euler(new Vector3(45, 0, UnityEngine.Random.Range(-25, 25)))));
+        baseList.Add(Instantiate(basePrefab, secondRandomBasePosition, Quaternion.Euler(new Vector3(45, 0, UnityEngine.Random.Range(-25, 25)))));
+        baseList.Add(Instantiate(basePrefab, thirdRandomBasePosition, Quaternion.Euler(new Vector3(45, 0, UnityEngine.Random.Range(-25, 25)))));
     }
 
     private void CleanBases()
