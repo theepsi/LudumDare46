@@ -125,8 +125,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSize: 0
-  RandomForce: {x: 5, y: 10}
   breakPartner: {fileID: 0}
+  offsetDirection: 15
+  normalizedExtraScreen: 0.7
 --- !u!1 &5372075756023873181
 GameObject:
   m_ObjectHideFlags: 0

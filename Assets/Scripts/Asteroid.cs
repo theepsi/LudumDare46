@@ -15,14 +15,16 @@ public enum AsteroidSize
 public class Asteroid : MonoBehaviour
 {
     public AsteroidSize currentSize = AsteroidSize.BIG;
-    public Vector2 RandomForce;
-    
+
     private Rigidbody mRigidbody;
 
     private bool ready = false;
     private Vector3 targetDir;
 
     public GameObject breakPartner = null;
+
+    public int offsetDirection = 15;
+    public float normalizedExtraScreen = 0.5f;
 
     private void Awake()
     {
@@ -38,7 +40,7 @@ public class Asteroid : MonoBehaviour
         ApplySize();
         if (!fromBreak)
         {
-            Vector3 targetOffseted = target;
+            Vector3 targetOffseted = target + new Vector3(Random.Range(-offsetDirection, offsetDirection), 0, Random.Range(-offsetDirection, offsetDirection));
             targetDir = targetOffseted - transform.position;
         }
         else
@@ -50,14 +52,25 @@ public class Asteroid : MonoBehaviour
         gameObject.SetActive(true);
     }
 
+    private float VelocityBySize()
+    {
+        switch (currentSize)
+        {
+            case AsteroidSize.SMALL: return 3f;
+            case AsteroidSize.NORMAL: return 2f;
+            case AsteroidSize.BIG: return 1f;
+        }
+        return 0f;
+    }
+
     private void FixedUpdate()
     {
         if (ready)
         {
-            mRigidbody.AddForce(targetDir.normalized * Random.Range(RandomForce[0], RandomForce[1]), ForceMode.Impulse);
+            mRigidbody.AddForce(targetDir.normalized * VelocityBySize(), ForceMode.Impulse);
             ready = false;
         }
-        
+
         if (CheckForDestruction())
         {
             DestroyAsteroid();
@@ -81,7 +94,7 @@ public class Asteroid : MonoBehaviour
 
         }
     }
-    
+
     private void Break()
     {
         DestroyAsteroid();
@@ -124,7 +137,7 @@ public class Asteroid : MonoBehaviour
     private bool CheckForDestruction()
     {
         Vector2 vpPos = Camera.main.WorldToViewportPoint(transform.position);
-        return vpPos.x < -1 || vpPos.x > 2 || vpPos.y < -1 || vpPos.y > 2;
+        return vpPos.x < -normalizedExtraScreen || vpPos.x > 1 + normalizedExtraScreen || vpPos.y < -normalizedExtraScreen || vpPos.y > 1 + normalizedExtraScreen;
     }
 
     public void OnTriggerEnter(Collider other)

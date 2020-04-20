@@ -73,10 +73,28 @@ public class PlayerController : MonoBehaviour
     {
         if (acceleration == 1)
         {
-            mRigidbody.velocity += transform.forward * impulseSpeed * Time.deltaTime * acceleration;
-            mRigidbody.velocity = new Vector3(Mathf.Min(mRigidbody.velocity.x, maxSpeed), 0, Mathf.Min(mRigidbody.velocity.z, maxSpeed));
+            mRigidbody.velocity += transform.forward * impulseSpeed * Time.deltaTime * (acceleration * 2)   ;
+            float velocityX = 0;
+            if (mRigidbody.velocity.x < 0)
+            {
+                velocityX = Mathf.Max(mRigidbody.velocity.x, -maxSpeed);
+            }
+            else
+            {
+                velocityX = Mathf.Min(mRigidbody.velocity.x, maxSpeed);
+            }
+            float velocityZ = 0;
+            if (mRigidbody.velocity.z < 0)
+            {
+                velocityZ = Mathf.Max(mRigidbody.velocity.z, -maxSpeed);
+            }
+            else
+            {
+                velocityZ = Mathf.Min(mRigidbody.velocity.z, maxSpeed);
+            }
+            mRigidbody.velocity = new Vector3(velocityX, 0, velocityZ);
         }
-        else if(acceleration == -1)
+        else if (acceleration == -1)
         {
             mRigidbody.velocity = mRigidbody.velocity * 0.95f;
             Vector3 newVelocity = mRigidbody.velocity;
