@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class SceneManager : MonoBehaviour
 {
-    private AudioSource menuAudioSource = null;
-    private AudioSource gameAudioSource = null;
+    public AudioSource menuAudioSource = null;
+    public AudioSource gameAudioSource = null;
 
     private IEnumerator InternalLoadScene(string sceneToload, Action callback = null)
     {
