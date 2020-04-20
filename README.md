@@ -41,15 +41,17 @@ All equiped modules are destroyed by asteroids.
 ## Credits
 
 ### Developers & VFX
-Laura Martínez Sanahuja
+Laura Martinez Sanahuja
+
 Ennio Casas Puglielli
 
 ### Music & Art & SFX
-Joan Martínez Díaz
+Joan Martinez Diaz
+
 M.Rosa Sanahuja Montesinos
 
 ### QA & Art
-Marc Fernàndez Díaz
+Marc Fernandez Diaz
 
 ### Assets
 Kenney
