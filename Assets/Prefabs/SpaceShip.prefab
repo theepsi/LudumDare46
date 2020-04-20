@@ -236,7 +236,7 @@ MonoBehaviour:
   minOxygen: 0
   maxOxygen: 20
   minHull: 0
-  maxHull: 4
+  maxHull: 7
   maxSpeed: 7
   oxygenDeplitionRate: 1
   oxygenDeplitionAmount: 1

@@ -135,6 +135,7 @@ public class Asteroid : MonoBehaviour
 
             asteroid1.GetComponent<Asteroid>().breakPartner = asteroid2;
             asteroid2.GetComponent<Asteroid>().breakPartner = asteroid1;
+            EventManager.TriggerEvent(Statics.Events.asteroidBreak);
         }
     }
 
@@ -165,9 +166,6 @@ public class Asteroid : MonoBehaviour
     {
         ready = false;
         gameObject.SetActive(false);
-        if (breakPartner == null)
-        {
-            EventManager.TriggerEvent(Statics.Events.asteroidDistroy);
-        }
+        EventManager.TriggerEvent(Statics.Events.asteroidDistroy);
     }
 }
