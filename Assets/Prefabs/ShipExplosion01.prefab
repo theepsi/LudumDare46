@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2230267226134583112}
   - component: {fileID: 8850958655606897250}
   m_Layer: 0
-  m_Name: ShipExplosion
+  m_Name: ShipExplosion01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4822,6 +4822,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8837410683815248172}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebb20dc2475241947ab178a5dc0dfbdb, type: 3}
+  m_Script: {fileID: 11500000, guid: 60f288140aa59174a800c4a8118d5ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
