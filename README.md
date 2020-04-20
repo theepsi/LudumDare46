@@ -1,7 +1,5 @@
 # Save Our Ship
 
-![image](https://drive.google.com/uc?export=view&id=1XSa0PU5r6BAYJViSo8p_76YFNpuCeZiE)
-
 ## Introduction
 
     SOS, SOS!!
