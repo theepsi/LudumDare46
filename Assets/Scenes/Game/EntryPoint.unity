@@ -128,16 +128,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 692950409041206546, guid: 96eff19578b3142408dc2422752d6f74,
-        type: 3}
-      propertyPath: onlyRare
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 692950409041206546, guid: 96eff19578b3142408dc2422752d6f74,
-        type: 3}
-      propertyPath: godMode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 692950409041206547, guid: 96eff19578b3142408dc2422752d6f74,
         type: 3}
       propertyPath: m_Name
@@ -197,6 +187,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5638657629118640712, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5638657629118640712, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5638657629118640712, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5638657629118640712, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5638657629118640712, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6840409224578317966, guid: 96eff19578b3142408dc2422752d6f74,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1002
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96eff19578b3142408dc2422752d6f74, type: 3}

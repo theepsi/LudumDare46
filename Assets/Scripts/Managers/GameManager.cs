@@ -5,6 +5,8 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
+using UnityEngine.Video;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +18,10 @@ public class GameManager : MonoBehaviour
     public bool enableAsteroids = true;
 
     public static GameManager Instance = null;
+
+    public CanvasGroup fader;
+    public GameObject blackScreen;
+    public VideoPlayer videoPlayer;
 
     public GameObject mainUI;
 
@@ -56,6 +62,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        DOTween.Init();
+
         sceneManager = GetComponent<SceneManager>();
         EventManager.StartListening(Statics.Events.playGame, StartGame);
 
@@ -64,8 +72,30 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        Fade(true, StartVideo);
+    }
+
+    private void StartVideo()
+    {
+        blackScreen.SetActive(true);
+        sceneManager.menuAudioSource.Stop();
+
+        videoPlayer.loopPointReached -= VideoEndReached;
+
+        videoPlayer.gameObject.SetActive(true);
+
+        videoPlayer.loopPointReached += VideoEndReached;
+        videoPlayer.Play();
+    }
+
+    void VideoEndReached(VideoPlayer vp)
+    {
+        videoPlayer.gameObject.SetActive(false);
+
         Action onGameSceneLoaded = () =>
         {
+            blackScreen.SetActive(false);
+
             mainUI.SetActive(true);
 
             baseList = new List<GameObject>();
@@ -95,9 +125,17 @@ public class GameManager : MonoBehaviour
             CreateBases();
 
             StartCoroutine(CheckBasesAreTooFarAway());
+
+            Fade(false);
         };
 
-        sceneManager.LoadGame(onGameSceneLoaded);
+        sceneManager.LoadGame(onGameSceneLoaded); ;
+    }
+
+    public void SkipIntro()
+    {
+        videoPlayer.Stop();
+        VideoEndReached(videoPlayer);
     }
 
     /// <summary>
@@ -212,4 +250,11 @@ public class GameManager : MonoBehaviour
         resumePanel.SetActive(false);
         sceneManager.LoadMainMenu();
     }
+
+    public void Fade(bool fadeOut, Action callback = null)
+    {
+        fader.DOFade(fadeOut ? 1 : 0, 1).OnComplete(() => callback?.Invoke());
+        fader.blocksRaycasts = fadeOut;
+    }
+
 }

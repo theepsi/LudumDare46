@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class SceneManager : MonoBehaviour
 {
+    public AudioSource menuAudioSource = null;
+    public AudioSource gameAudioSource = null;
+
     private IEnumerator InternalLoadScene(string sceneToload, Action callback = null)
     {
         AsyncOperation operation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneToload, UnityEngine.SceneManagement.LoadSceneMode.Single);
@@ -24,11 +27,38 @@ public class SceneManager : MonoBehaviour
 
     public void LoadMainMenu(Action callback = null)
     {
-        LoadScene("MainMenu", callback);
+        LoadScene("MainMenu", () =>
+        {
+            menuAudioSource = ObjectPooler.Instance.GetPooledObject("AudioSource").GetComponent<AudioSource>();
+
+            menuAudioSource.gameObject.SetActive(true);
+
+            menuAudioSource.clip = Resources.Load<AudioClip>("Music/MenuLoop");
+            menuAudioSource.loop = true;
+            menuAudioSource.Play();
+
+            callback?.Invoke();
+        });
     }
 
     public void LoadGame(Action callback = null)
     {
-        LoadScene("Game", callback);
+        menuAudioSource?.Stop();
+        menuAudioSource?.gameObject.SetActive(false);
+
+        menuAudioSource = null;
+
+        LoadScene("Game", () =>
+        {
+            gameAudioSource = ObjectPooler.Instance.GetPooledObject("AudioSource").GetComponent<AudioSource>();
+
+            gameAudioSource.gameObject.SetActive(true);
+
+            gameAudioSource.clip = Resources.Load<AudioClip>("Music/GameMainLoop");
+            gameAudioSource.loop = true;
+            gameAudioSource.Play();
+
+            callback?.Invoke();
+        });
     }
 }
