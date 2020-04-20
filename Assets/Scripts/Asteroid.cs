@@ -165,5 +165,9 @@ public class Asteroid : MonoBehaviour
     {
         ready = false;
         gameObject.SetActive(false);
+        if (breakPartner == null)
+        {
+            EventManager.TriggerEvent(Statics.Events.asteroidDistroy);
+        }
     }
 }

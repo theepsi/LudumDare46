@@ -28,6 +28,8 @@ public class Module : MonoBehaviour
     public MeshRenderer[] decalRenderers;
     public GameObject decalParent;
 
+    private float normalizedExtraScreen;
+
     //TODO: rest of the properties
 
     //Oxygen
@@ -40,9 +42,11 @@ public class Module : MonoBehaviour
     private Coroutine energyModule;
     private LineRenderer lineRenderer = null;
 
-    public void Init(ModuleData data)
+    public void Init(ModuleData data, float normalizedExtraScreen)
     {
         this.data = data;
+
+        this.normalizedExtraScreen = normalizedExtraScreen;
 
         pipeRenderer.material = data.moduleMaterial;
         decalParent.SetActive(data.textureEnabled);
@@ -69,6 +73,7 @@ public class Module : MonoBehaviour
     private void DestroyModule()
     {
         gameObject.SetActive(false);
+        EventManager.TriggerEvent(Statics.Events.moduleDistroy);
     }
 
     public ModuleData GetData()
@@ -146,8 +151,7 @@ public class Module : MonoBehaviour
 
     private bool CheckForDestruction()
     {
-        Vector2 vpPos = Camera.main.WorldToViewportPoint(transform.position);
-        return vpPos.x < -1 || vpPos.x > 2 || vpPos.y < -1 || vpPos.y > 2;
+        return SpawnerHelper.OffScreen(Camera.main.WorldToViewportPoint(transform.position), normalizedExtraScreen);
     }
 
     #region OXYGEN

@@ -12,10 +12,15 @@ public class ModuleManager : MonoBehaviour
 
     private Coroutine spawner;
     private Camera mainCam;
-    
+
+    public int maxModules = 20;
+    private int totalModules = 0;
+
     public void Init(Camera mainCam)
     {
         this.mainCam = mainCam;
+        totalModules = 0;
+        EventManager.StartListening(Statics.Events.moduleDistroy, () => totalModules--);
     }
 
     public void StartSpawner()
@@ -46,48 +51,53 @@ public class ModuleManager : MonoBehaviour
     {
         for (int i = 0; i < spawnAmount; ++i)
         {
-            GameObject module = ObjectPooler.Instance.GetPooledObject("Module");
-
-            Vector2 position = SpawnerHelper.SpawnPosition(normalizedExtraScreen);
-
-            module.transform.position = mainCam.ViewportToWorldPoint(new Vector3(position.x, position.y, mainCam.transform.position.y));
-
-            module.transform.rotation = Random.rotation;
-            Vector3 eulerAngles = module.transform.eulerAngles;
-            eulerAngles.x = 0;
-            module.transform.eulerAngles = eulerAngles;
-
-            //Select module based on Rarity, then initialize it.
-            int moduleRarityInt = Random.Range(0, (int)ModuleRarity.ALL);
-            ModuleRarity moduleRarity = ModuleRarity.COMMON;
-            if (GameManager.Instance.onlyRare)
+            if (totalModules < maxModules)
             {
-                moduleRarity = ModuleRarity.RARE;
-            }
-            else
-            {
-                if (moduleRarityInt < (int)ModuleRarity.RARE)
+                GameObject module = ObjectPooler.Instance.GetPooledObject("Module");
+
+                Vector2 position = SpawnerHelper.SpawnPosition(normalizedExtraScreen);
+
+                module.transform.position = mainCam.ViewportToWorldPoint(new Vector3(position.x, position.y, mainCam.transform.position.y));
+
+                module.transform.rotation = Random.rotation;
+                Vector3 eulerAngles = module.transform.eulerAngles;
+                eulerAngles.x = 0;
+                module.transform.eulerAngles = eulerAngles;
+
+                //Select module based on Rarity, then initialize it.
+                int moduleRarityInt = Random.Range(0, (int)ModuleRarity.ALL);
+                ModuleRarity moduleRarity = ModuleRarity.COMMON;
+                if (GameManager.Instance.onlyRare)
                 {
                     moduleRarity = ModuleRarity.RARE;
                 }
-                else if (moduleRarityInt < (int)ModuleRarity.UNCOMMON)
+                else
                 {
-                    moduleRarity = ModuleRarity.UNCOMMON;
+                    if (moduleRarityInt < (int)ModuleRarity.RARE)
+                    {
+                        moduleRarity = ModuleRarity.RARE;
+                    }
+                    else if (moduleRarityInt < (int)ModuleRarity.UNCOMMON)
+                    {
+                        moduleRarity = ModuleRarity.UNCOMMON;
+                    }
                 }
-            }
 
-            List<ModuleData> rarityModules = new List<ModuleData>();
+                List<ModuleData> rarityModules = new List<ModuleData>();
 
-            for (int j = 0; j < availableModules.Length; ++j)
-            {
-                if (availableModules[j].moduleRarity == moduleRarity) rarityModules.Add(availableModules[j]);
-            }
+                for (int j = 0; j < availableModules.Length; ++j)
+                {
+                    if (availableModules[j].moduleRarity == moduleRarity) rarityModules.Add(availableModules[j]);
+                }
 
-            if (rarityModules.Count > 0)
-            {
-                int randModule = Random.Range(0, rarityModules.Count);
+                if (rarityModules.Count > 0)
+                {
+                    int randModule = Random.Range(0, rarityModules.Count);
 
-                module.GetComponent<Module>().Init(rarityModules[randModule]);
+                    module.GetComponent<Module>().Init(rarityModules[randModule], normalizedExtraScreen);
+                }
+
+                totalModules++;
             }
         }
     }

@@ -11,9 +11,13 @@ public class AsteroidSpawner : MonoBehaviour
     private Coroutine spawner;
     private Camera mainCam;
 
+    public int maxAsteroids = 20;
+    private int totalAsteroids = 0;
+
     public void Init(Camera mainCam)
     {
         this.mainCam = mainCam;
+        EventManager.StartListening(Statics.Events.asteroidDistroy, () => totalAsteroids--);
     }
 
     public void StartSpawner()
@@ -44,13 +48,18 @@ public class AsteroidSpawner : MonoBehaviour
     {
         for (int i = 0; i < spawnAmount; ++i)
         {
-            GameObject asteroid = ObjectPooler.Instance.GetPooledObject("Asteroid");
+            if (totalAsteroids < maxAsteroids)
+            {
+                GameObject asteroid = ObjectPooler.Instance.GetPooledObject("Asteroid");
 
-            Vector2 position = SpawnerHelper.SpawnPosition(normalizedExtraScreen);
+                Vector2 position = SpawnerHelper.SpawnPosition(normalizedExtraScreen);
 
-            asteroid.transform.position = mainCam.ViewportToWorldPoint(new Vector3(position.x, position.y, mainCam.transform.position.y));
-            AsteroidSize randomSize = (AsteroidSize)Random.Range(1, System.Enum.GetNames(typeof(AsteroidSize)).Length);
-            asteroid.GetComponent<Asteroid>().Init(randomSize, GameManager.Instance.player.transform.position, false, normalizedExtraScreen);
+                asteroid.transform.position = mainCam.ViewportToWorldPoint(new Vector3(position.x, position.y, mainCam.transform.position.y));
+                AsteroidSize randomSize = (AsteroidSize)Random.Range(1, System.Enum.GetNames(typeof(AsteroidSize)).Length);
+                asteroid.GetComponent<Asteroid>().Init(randomSize, GameManager.Instance.player.transform.position, false, normalizedExtraScreen);
+
+                totalAsteroids++;
+            }
         }
     }
 }
